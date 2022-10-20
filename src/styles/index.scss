@@ -1,0 +1,42 @@
+@use "./mixins";
+
+body {
+    margin: 0;
+  }
+  
+  @include mixins.respond(desk-large) {
+    html {
+      font-size: 10px;
+    }
+  }
+  
+  @include mixins.respond(desk-small) {
+    html {
+      font-size: 10px;
+    }
+  }
+  
+  @include mixins.respond(tab-land) {
+    html {
+      font-size: 12px;
+    }
+  }
+  
+  @include mixins.respond(tab-port) {
+    html {
+      font-size: 14px;
+    }
+  }
+  
+  @include mixins.respond(phone) {
+    html {
+      font-size: 15px;
+    }
+  }
+  
+  @include mixins.respond(mini) {
+    html {
+      font-size: 17px;
+    }
+  }
+  
