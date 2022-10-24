@@ -1,41 +1,43 @@
 @use "./mixins";
+@import "./antdOverrides";
 
 body {
   margin: 0;
+  font-size: none;
 }
 
 @include mixins.respond(desk-large) {
-  body {
+  html {
     font-size: 10px;
   }
 }
 
 @include mixins.respond(desk-small) {
-  body {
+  html {
     font-size: 10px;
   }
 }
 
 @include mixins.respond(tab-land) {
-  body {
+  html {
     font-size: 12px;
   }
 }
 
 @include mixins.respond(tab-port) {
-  body {
+  html {
     font-size: 14px;
   }
 }
 
 @include mixins.respond(phone) {
-  body {
+  html {
     font-size: 15px;
   }
 }
 
 @include mixins.respond(mini) {
-  body {
+  html {
     font-size: 17px;
   }
 }
