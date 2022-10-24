@@ -7,6 +7,7 @@ module.exports = {
       options: {
         customizeTheme: {
           "@primary-color": "#793EF5",
+          "@layout-header-background": "#fff",
         },
       },
     },
