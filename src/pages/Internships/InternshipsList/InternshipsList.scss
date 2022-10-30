@@ -1,0 +1,18 @@
+@use "/src/styles/mixins";
+
+.internshipListCard {
+    height: 100%;
+    border-radius: 20px;
+
+    &__categoryRow {
+        background: #f6f5f9;
+        height: 56px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    &__list {
+        height: calc(100% - 56px);
+        overflow: auto;
+    }
+}

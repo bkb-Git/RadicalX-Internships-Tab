@@ -1,6 +1,8 @@
 import { Col, Row } from "antd";
+
 import Header from "./Header";
 import Insights from "./Insights";
+import InternshipsList from "./InternshipsList";
 
 import "./Internships.scss";
 
@@ -25,11 +27,14 @@ const Internships = () => {
 
   return (
     <Row gutter={[0, 24]} className="internships">
-      <Col {...responsiveWidths}>
+      <Col {...responsiveWidths} className="internships__header">
         <Row justify="center" align="middle">
           {renderHeader()}
           {renderInsights()}
         </Row>
+      </Col>
+      <Col {...responsiveWidths} className="internships__list">
+        <InternshipsList />
       </Col>
     </Row>
   );

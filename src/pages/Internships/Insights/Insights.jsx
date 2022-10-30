@@ -1,5 +1,6 @@
 import { Button, Card, Col, Row, Space, Typography } from "antd";
 import { ReactComponent as Calendar } from "../../../assets/calendar-2.svg";
+import { ReactComponent as Funnel } from "../../../assets/Funnel.svg";
 
 import "./Insights.scss";
 
@@ -35,8 +36,10 @@ const Insights = () => {
   const renderSummary = () => {
     return (
       <Col span={6} className="insights__summary">
-        <Title level={4}>Internships Insights</Title>
-        <Text>
+        <Title level={4} className="insights__summary__title">
+          Internships Insights
+        </Title>
+        <Text className="insights__summary__text">
           In the eighteenth century the German philosopher Immanuel Kant developed a theory of knowledge in which
           knowledge about space can be both a priori and synthetic.
         </Text>
@@ -51,7 +54,9 @@ const Insights = () => {
           <Col span={24} className="insights__details__timeline">
             {timeline()}
           </Col>
-          <Col span={24} className="insights__details__graphics" />
+          <Col span={24} className="insights__details__graphics">
+            <Funnel width={790} height="100%" />
+          </Col>
         </Row>
       </Col>
     );

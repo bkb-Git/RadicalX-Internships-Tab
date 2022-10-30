@@ -1,4 +1,26 @@
+@use "/src/styles/mixins";
+
 .internships {
     height: 100%;
     border-radius: 16px;
+
+    &__header {
+        height: 350px;
+    }
+
+    &__list {
+        height: calc(100% - 374px);
+    }
+}
+
+@include mixins.respond(desk-small) {
+    .internships {
+        &__header {
+            height: 250px;
+        }
+
+        &__list {
+            height: calc(100% - 274px);
+        }
+    }
 }
