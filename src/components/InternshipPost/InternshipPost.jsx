@@ -13,7 +13,7 @@ const data = [
   { x: "4", y: 84 },
   { x: "5", y: 67 },
   { x: "6", y: 90 },
-  { x: "7", y: 108 },
+  { x: "7", y: 100 },
   { x: "8", y: 110 },
   { x: "9", y: 120 },
   { x: "10", y: 115 },
@@ -61,9 +61,18 @@ const InternshipPost = (props) => {
     chart.interaction("active-region");
 
     chart.tooltip({
-      position: "top",
+      position: "right",
       showMarkers: false,
       title: (title, datum) => datum.y,
+      domStyles: {
+        "g2-tooltip": {
+          backgroundColor: "#793ef5",
+          color: "white",
+          fontWeight: "600",
+          fontFamily: "Space Grotesk, sans-serif ",
+        },
+        "g2-tooltip-list": { display: "none" },
+      },
     });
 
     chart
@@ -78,10 +87,7 @@ const InternshipPost = (props) => {
   };
 
   useEffect(() => {
-    if (!prevComponentMounted && componentMounted) {
-      console.log(`data index : ${id}, qualifiedCandidates: ${qualifiedCandidates} mounted: ${componentMounted}`);
-      renderColumnGraph();
-    }
+    if (!prevComponentMounted && componentMounted) renderColumnGraph();
 
     setPrevComponentMounted(componentMounted);
     setComponentMounted(true);
