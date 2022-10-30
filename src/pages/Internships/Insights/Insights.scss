@@ -1,3 +1,5 @@
+@use "/src/styles/mixins";
+
 .insights {
     height: 250px;
     border-radius: 16px;
@@ -6,7 +8,15 @@
         background: #f6f5f9;
         padding: 16px;
         border-radius: 16px;
-        padding-right: 5px;
+        height: 100%;
+
+        &__title {
+            font-size: 2rem;
+        }
+
+        &__text {
+            font-size: 1.4rem;
+        }
     }
 
     &__details {
@@ -21,6 +31,25 @@
 
         &__graphics {
             height: calc(100% - 48px);
+            box-sizing: border-box;
+            @include mixins.flex(center, center, row);
+        }
+    }
+
+    @include mixins.respond(desk-small) {
+        height: 200px;
+
+        &__summary {
+            padding: 10px 16px;
+            // height: fit-content;
+
+            &__title {
+                font-size: 1.7rem !important;
+            }
+
+            &__text {
+                font-size: 1.2rem;
+            }
         }
     }
 }

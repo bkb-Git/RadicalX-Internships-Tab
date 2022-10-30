@@ -1,7 +1,15 @@
+@use "/src/styles/mixins";
+
 .header {
-    height: 10rem;
+    height: 100px;
 
     &__title {
         margin-bottom: 0 !important;
+    }
+}
+
+@include mixins.respond(desk-small) {
+    .header {
+        height: 60px;
     }
 }

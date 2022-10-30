@@ -1,9 +1,11 @@
 @use "./mixins";
 @import "./antdOverrides";
+@import "./variables";
 
 body {
   margin: 0;
   font-size: none;
+  font-family: $font-primary;
 }
 
 @include mixins.respond(desk-large) {

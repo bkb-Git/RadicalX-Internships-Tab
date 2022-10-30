@@ -30,3 +30,12 @@
     @include mixins.flex(unset, center, column);
     width: 100%;
 }
+
+.ant-list-split .ant-list-item {
+    border-bottom: none;
+}
+
+.ant-statistic-content {
+    color: $color-primary;
+    font-size: 1.8rem;
+}

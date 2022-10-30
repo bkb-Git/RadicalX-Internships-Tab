@@ -1,0 +1,13 @@
+@use "/src/styles/mixins";
+
+.category {
+    @include mixins.flex(space-between, center, row);
+    height: 100%;
+    padding: 16px 12px;
+    color: #2f3031;
+
+    &__button {
+        border-radius: 25px;
+        border-color: #793ef5;
+    }
+}
