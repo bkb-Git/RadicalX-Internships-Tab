@@ -11,3 +11,17 @@
         border-color: #793ef5;
     }
 }
+
+.sortIcon {
+    &:hover {
+        cursor: pointer;
+        g {
+            opacity: 1;
+            fill: #793ef5;
+
+            #downIcon {
+                stroke: white;
+            }
+        }
+    }
+}
