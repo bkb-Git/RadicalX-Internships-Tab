@@ -3,6 +3,7 @@
 .internships {
     height: 100%;
     border-radius: 16px;
+    row-gap: 24px;
 
     &__header {
         height: 350px;
@@ -11,16 +12,13 @@
     &__list {
         height: calc(100% - 374px);
     }
-}
-
-@include mixins.respond(desk-small) {
-    .internships {
+    @include mixins.respond(desk-small) {
         &__header {
-            height: 250px;
+            height: 300px;
         }
 
         &__list {
-            height: calc(100% - 274px);
+            height: calc(100% - 324px);
         }
     }
 }

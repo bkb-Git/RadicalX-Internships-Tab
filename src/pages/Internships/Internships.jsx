@@ -26,9 +26,9 @@ const Internships = () => {
   };
 
   return (
-    <Row gutter={[0, 24]} className="internships">
+    <Row className="internships">
       <Col {...responsiveWidths} className="internships__header">
-        <Row justify="center" align="middle">
+        <Row justify="center" align="middle" style={{ height: "100%" }}>
           {renderHeader()}
           {renderInsights()}
         </Row>

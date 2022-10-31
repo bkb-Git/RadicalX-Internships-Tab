@@ -30,14 +30,16 @@
         }
 
         &__graphics {
+            // @include mixins.flex(center, center, row);
             height: calc(100% - 48px);
+            width: 100%;
+            padding: 5px;
             box-sizing: border-box;
-            @include mixins.flex(center, center, row);
         }
     }
 
     @include mixins.respond(desk-small) {
-        height: 200px;
+        // height: 200px;
 
         &__summary {
             padding: 10px 16px;
