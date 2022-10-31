@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Card, Col, Divider, List, Row } from "antd";
 
 import Category from "components/Category";
 import InternshipPost from "components/InternshipPost";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InternshipPostSkeleton from "../InternshipPostSkeleton";
 
 import { ReactComponent as IconGroup } from "../../../assets/ButtonsGroup.svg";
 
 import "./InternshipsList.scss";
-import InternshipPostSkeleton from "../InternshipPostSkeleton";
 
 const categoryWidths = {
   internshipTitle: { lg: 8, xl: 8, xxl: 8 },
@@ -43,6 +43,7 @@ const generateMockDataList = (count) => {
 
 const InternshipsList = () => {
   const [loading, setLoading] = useState(false);
+  const [listLoading, setListLoading] = useState(true);
   const [listData, setListData] = useState([]);
   const [page, setPage] = useState(0);
   const pageSize = 10;
@@ -58,6 +59,7 @@ const InternshipsList = () => {
       const fetchedData = generateMockDataList(pageSize);
       setListData([...listData, ...fetchedData]);
       setLoading(false);
+      setListLoading(false);
     }, 2500);
   };
 
@@ -92,11 +94,12 @@ const InternshipsList = () => {
               loadMoreData();
             }}
             hasMore={listData.length < 50}
-            loader={<InternshipPostSkeleton widths={categoryWidths} />}
+            loader={!listLoading && <InternshipPostSkeleton widths={categoryWidths} />}
             endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
             scrollableTarget="internshipList"
           >
             <List
+              loading={listLoading}
               dataSource={listData}
               renderItem={(item) => <InternshipPost post={item} widths={categoryWidths} key={item.id} />}
             />
