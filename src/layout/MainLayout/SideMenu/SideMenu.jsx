@@ -1,31 +1,81 @@
 import { Menu } from "antd";
-import { ReactComponent as DashboardIcon } from "../../../assets/Dashboard-Icon.svg";
-import { ReactComponent as MedalStarIcon } from "../../../assets/Medal-Star.svg";
-import { ReactComponent as BookIcon } from "../../../assets/Book.svg";
-import { ReactComponent as BriefcaseIcon } from "../../../assets/Briefcase.svg";
-import { ReactComponent as SettingsIcon } from "../../../assets/Setting.svg";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import BookIcon from "./MenuIcons/BookIcon";
+import BriefcaseIcon from "./MenuIcons/BriefcaseIcon";
+import DashboardIcon from "./MenuIcons/DashboardIcon";
+import MedalStarIcon from "./MenuIcons/MedalStarIcon";
+import SettingsIcon from "./MenuIcons/SettingsIcon";
 
 import "./SideMenu.scss";
 
-const getItem = (label, key, icon, children) => {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
+const ROUTE_KEY = {
+  DASHBOARD: "1",
+  APPRENTERSHIPS: "2",
+  INTERNSHIPS: "3",
+  JOBS: "4",
+  SETTINGS: "5",
 };
 
-const items = [
-  getItem("Dashboard", "1", <DashboardIcon />),
-  getItem("Apprenterships", "2", <MedalStarIcon />),
-  getItem("Internships", "3", <BookIcon />),
-  getItem("Jobs", "4", <BriefcaseIcon />),
-  getItem("Settings", "5", <SettingsIcon />),
-];
-
 const SideMenu = () => {
-  return <Menu defaultSelectedKeys={["3"]} mode="inline" items={items} className="sideMenu" />;
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const currentLocation = location.pathname.match(/\w+/)?.[0].toUpperCase();
+
+  const getItem = (label, key, icon, children) => {
+    return {
+      key,
+      icon,
+      label,
+      children,
+    };
+  };
+
+  const handleRoute = (e) => {
+    switch (e.key) {
+      case ROUTE_KEY.DASHBOARD:
+        navigate("/");
+        break;
+      case ROUTE_KEY.INTERNSHIPS:
+        navigate("internships");
+        break;
+      case ROUTE_KEY.APPRENTERSHIPS:
+        navigate("apprenterships");
+        break;
+      case ROUTE_KEY.JOBS:
+        navigate("jobs");
+        break;
+      case ROUTE_KEY.SETTINGS:
+        navigate("settings");
+        break;
+      default:
+    }
+  };
+
+  const items = [
+    getItem("Dashboard", ROUTE_KEY.DASHBOARD, <DashboardIcon selected={!currentLocation} />),
+    getItem(
+      "Apprenterships",
+      ROUTE_KEY.APPRENTERSHIPS,
+      <MedalStarIcon selected={currentLocation === "APPRENTERSHIPS"} />
+    ),
+    getItem("Internships", ROUTE_KEY.INTERNSHIPS, <BookIcon selected={currentLocation === "INTERNSHIPS"} />),
+    getItem("Jobs", ROUTE_KEY.JOBS, <BriefcaseIcon selected={currentLocation === "JOBS"} />),
+    getItem("Settings", ROUTE_KEY.SETTINGS, <SettingsIcon selected={currentLocation === "SETTINGS"} />),
+  ];
+
+  return (
+    <Menu
+      onClick={handleRoute}
+      defaultSelectedKeys={["3"]}
+      selectedKeys={currentLocation ? [ROUTE_KEY[currentLocation]] : [ROUTE_KEY.DASHBOARD]}
+      mode="inline"
+      items={items}
+      className="sideMenu"
+    />
+  );
 };
 
 export default SideMenu;
