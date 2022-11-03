@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import DataSet from "@antv/data-set";
+// import DataSet from "@antv/data-set";
 import { Button, Card, Col, Row, Space, Typography } from "antd";
-import { Chart } from "@antv/g2";
+
 import { ReactComponent as Calendar } from "../../../assets/calendar-2.svg";
 
 import "./Insights.scss";
@@ -55,95 +55,15 @@ const data = [
 const { Title, Text } = Typography;
 
 const Insights = () => {
-  const [componentMounted, setComponentMounted] = useState(false);
-  const [prevComponentMounted, setPrevComponentMounted] = useState(false);
+  // const [componentMounted, setComponentMounted] = useState(false);
+  // const [prevComponentMounted, setPrevComponentMounted] = useState(false);
 
-  const renderAreaChart = () => {
-    const ds = new DataSet();
-    const dv = ds.createView().source(data);
+  // useEffect(() => {
+  //   if (!prevComponentMounted && componentMounted);
 
-    const chart = new Chart({
-      container: "area-chart",
-      autoFit: true,
-      height: 175,
-      width: "100%",
-      padding: [30, 5, 30, 30],
-    });
-
-    chart.data(dv.rows);
-    chart.scale({
-      value: {
-        max: 20000,
-        min: -2500,
-        nice: true,
-      },
-      day: {
-        range: [0, 1],
-        // eslint-disable-next-line no-sparse-arrays
-        ticks: [, "End"],
-      },
-    });
-
-    chart.tooltip(false);
-    chart.axis("value", false);
-
-    chart.facet("rect", {
-      fields: ["category"],
-      columnTitle: {
-        style: {
-          fontSize: 12,
-          textAlign: "center",
-          fontFamily: "Space Grotesk",
-          fontWeight: 500,
-          fill: "#5C5C5C",
-        },
-        position: "bottom",
-        offsetX: 70,
-        offsetY: 30,
-      },
-      padding: 0,
-      eachView: (view, facet) => {
-        const facetData = facet.data;
-
-        view.area().position("day*value").shape("smooth").style({ fill: "#793ef5" });
-        view.axis("day", {
-          grid: {
-            line: {
-              style: {
-                lineDash: [0, 0],
-                lineWidth: 2,
-                stroke: "#EFEFEF",
-              },
-            },
-          },
-          label: {
-            style: {
-              fontSize: 21,
-              textAlign: "center",
-              fontFamily: "Space Grotesk",
-              fontWeight: 500,
-              fill: "#5C5C5C",
-            },
-            offsetX: -70,
-            offsetY: -18,
-            formatter: (val, datum, index) => `${facetData[0].total} `,
-          },
-          line: false,
-        });
-        view.interaction("element-highlight");
-      },
-    });
-
-    chart.interaction("element-highlight");
-    chart.render();
-  };
-
-  useEffect(() => {
-    if (!prevComponentMounted && componentMounted) renderAreaChart();
-
-    setPrevComponentMounted(componentMounted);
-    setComponentMounted(true);
-  }, [componentMounted, prevComponentMounted]);
+  //   setPrevComponentMounted(componentMounted);
+  //   setComponentMounted(true);
+  // }, [componentMounted, prevComponentMounted]);
 
   const timeline = () => {
     return (

@@ -25,10 +25,19 @@
     }
 
     &__candidates {
-        // @include mixins.flex(center, center, row);
+        @include mixins.flex(center, flex-end, row);
         height: 100%;
         width: 100%;
-        padding: 5px 15px;
+        padding-bottom: 5px;
+
+        & > div {
+            height: auto !important;
+
+            & > div {
+                @include mixins.flex(center, flex-end, row);
+                height: 32px;
+            }
+        }
     }
 
     &__icons {

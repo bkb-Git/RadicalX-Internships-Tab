@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
     "@ant-design/icons": "^4.7.0",
-    "@antv/data-set": "^0.11.8",
-    "@antv/g2": "^4.2.8",
     "@craco/craco": "6.4.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -14,6 +13,7 @@
     "craco-antd": "^2.0.0",
     "dotenv": "^16.0.3",
     "firebase": "^9.12.1",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-infinite-scroll-component": "^6.1.0",
