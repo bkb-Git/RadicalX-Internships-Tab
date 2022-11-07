@@ -30,11 +30,26 @@
         }
 
         &__graphics {
-            // @include mixins.flex(center, center, row);
+            @include mixins.flex(flex-start, center, row);
             height: calc(100% - 48px);
             width: 100%;
-            padding: 5px;
-            box-sizing: border-box;
+
+            & > div {
+                height: 100% !important;
+                width: 100% !important;
+            }
+
+            & svg {
+                width: 100% !important;
+            }
+
+            & #-axis-label-Monday {
+                transform: translate(8%, 0);
+            }
+
+            & #-annotation-text {
+                transform: translate(8%, 0);
+            }
         }
     }
 
@@ -54,4 +69,8 @@
             }
         }
     }
+}
+
+.insights__details__graphics + #-grid-line-0 {
+    stroke: red;
 }

@@ -39,7 +39,6 @@ const InternshipPost = (props) => {
     yField: "y",
     renderer: "svg",
     tooltip: {
-      fields: ["y"],
       position: "bottom",
       formatter: (datum) => {
         return { title: datum.y };
