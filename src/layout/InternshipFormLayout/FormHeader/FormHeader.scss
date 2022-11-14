@@ -1,0 +1,38 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.formHeader {
+    height: auto;
+
+    &__main {
+        height: 80px;
+        padding: 18px 24px;
+        border-radius: 30px;
+        background-color: white;
+
+        &__nextButton {
+            @include mixins.flex(center, center, row);
+        }
+    }
+
+    &__subMain {
+        @include mixins.flex(center, center, row);
+        height: 60px;
+        width: 100%;
+        border-radius: 20px;
+        padding: 18px 24px;
+        border: 1px solid #d0d4da;
+
+        &__steps {
+            @include mixins.flex(center, center, row);
+
+            .ant-steps-item-container {
+                @include mixins.flex(flex-start, center, row);
+            }
+
+            .ant-steps-item-icon {
+                @include mixins.flex(center, center, row);
+            }
+        }
+    }
+}

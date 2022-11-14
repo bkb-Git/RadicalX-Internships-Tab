@@ -1,0 +1,30 @@
+@import "/src/styles/variables";
+
+.add {
+    height: 64px;
+    margin-bottom: 1rem;
+    padding-right: 10px;
+
+    &__item {
+        padding-left: 10px;
+        transition: all 0.3s linear;
+
+        &__button {
+            height: 64px;
+            border-radius: 16px;
+            border: 1px dashed $color-primary;
+            color: $color-primary;
+            transition: all 0.1s linear;
+
+            &:hover {
+                background: $color-primary;
+                cursor: pointer;
+                color: white;
+
+                path {
+                    stroke: white;
+                }
+            }
+        }
+    }
+}
