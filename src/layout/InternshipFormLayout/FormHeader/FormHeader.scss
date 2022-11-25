@@ -12,6 +12,17 @@
 
         &__nextButton {
             @include mixins.flex(center, center, row);
+            border-radius: 12px;
+        }
+
+        &__button {
+            @include mixins.flex(center, center, row);
+            transition: all 0.5 linear;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
         }
     }
 
