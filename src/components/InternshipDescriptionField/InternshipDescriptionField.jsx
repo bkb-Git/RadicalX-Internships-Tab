@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 import { ReactComponent as Menu } from "../../assets/menu.svg";
 import { ReactComponent as ArrowRight } from "../../assets/arrow-right-field-icon.svg";
+import { ReactComponent as TickCircle } from "../../assets/tick-circle.svg";
 
 import "./InternshipDescriptionField.scss";
 
 const InternshipDescriptionField = (props) => {
-  const { data, isActive } = props;
+  const { data, isActive, completed } = props;
   const { title, id } = data;
   const navigate = useNavigate();
 
@@ -27,7 +28,10 @@ const InternshipDescriptionField = (props) => {
           onClick={handleRoute}
         >
           <Row justify="space-between" align="middle">
-            <Col className="fieldCard__title">{title}</Col>
+            <Col className="fieldCard__title">
+              {title}
+              {completed && <TickCircle />}
+            </Col>
             <Col className={`fieldCard__icon ${isActive && "fieldCard__icon--active"}`}>
               <ArrowRight />
             </Col>
