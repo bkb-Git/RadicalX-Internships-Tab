@@ -10,9 +10,9 @@ import InternshipDescription from "pages/InternshipDescription";
 import InternshipGuide from "pages/InternshipGuide";
 import InternshipSurvey from "pages/InternshipSurvey";
 import InternshipSettings from "pages/InternshipSettings";
+import InternshipDescriptionInput from "pages/InternshipDescription/InternshipDescriptionInput";
 
 import "./styles/index.scss";
-import InternshipDescriptionInput from "pages/InternshipDescription/InternshipDescriptionInput";
 
 // import getInternships from "api/firebase";
 
