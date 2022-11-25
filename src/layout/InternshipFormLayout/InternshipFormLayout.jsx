@@ -1,5 +1,6 @@
-import { Layout } from "antd";
+import { Form, Layout } from "antd";
 import { Content } from "antd/lib/layout/layout";
+import AddNewInternshipFormContext, { defaultValue } from "context/AddNewInternshipFormContext";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import FormHeader from "./FormHeader";
@@ -14,23 +15,29 @@ const ROUTES = {
 };
 
 const InternshipFormLayout = () => {
-  const [step, setStep] = useState(0);
+  const [formContext, setFormContext] = useState(defaultValue);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const currentPath = location.pathname;
 
-    if (!currentPath.match(ROUTES[step])) navigate(ROUTES[step]);
-  }, [step, location.pathname]);
+    if (!currentPath.match(ROUTES[formContext.step])) navigate(ROUTES[formContext.step]);
+  }, [formContext.step, location.pathname]);
 
   return (
-    <Layout className="internshipsLayout">
-      <FormHeader currentStep={step} changeStep={setStep} />
-      <Content className="internshipsLayout__content">
-        <Outlet />
-      </Content>
-    </Layout>
+    // eslint-disable-next-line react/jsx-no-constructed-context-values
+    <AddNewInternshipFormContext.Provider value={{ ...formContext, setFormContext }}>
+      <Layout className="internshipsLayout">
+        <FormHeader />
+        <Content className="internshipsLayout__content">
+          <Form name="newInternship" className="internshipsLayout__content__newInternship">
+            <Outlet />
+          </Form>
+        </Content>
+      </Layout>
+    </AddNewInternshipFormContext.Provider>
   );
 };
 
