@@ -16,6 +16,7 @@ const ROUTES = {
 
 const InternshipFormLayout = () => {
   const [formContext, setFormContext] = useState(defaultValue);
+  const [step, setStep] = useState(defaultValue.step);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,12 +24,12 @@ const InternshipFormLayout = () => {
   useEffect(() => {
     const currentPath = location.pathname;
 
-    if (!currentPath.match(ROUTES[formContext.step])) navigate(ROUTES[formContext.step]);
-  }, [formContext.step, location.pathname]);
+    if (!currentPath.match(ROUTES[step])) navigate(ROUTES[step]);
+  }, [step, location.pathname]);
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <AddNewInternshipFormContext.Provider value={{ ...formContext, setFormContext }}>
+    <AddNewInternshipFormContext.Provider value={{ ...formContext, setFormContext, step, setStep }}>
       <Layout className="internshipsLayout">
         <FormHeader />
         <Content className="internshipsLayout__content">

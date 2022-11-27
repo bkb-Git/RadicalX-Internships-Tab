@@ -1,5 +1,8 @@
 import { Card, Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+
+import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
 
 import { ReactComponent as Menu } from "../../assets/menu.svg";
 import { ReactComponent as ArrowRight } from "../../assets/arrow-right-field-icon.svg";
@@ -8,11 +11,19 @@ import { ReactComponent as TickCircle } from "../../assets/tick-circle.svg";
 import "./InternshipDescriptionField.scss";
 
 const InternshipDescriptionField = (props) => {
-  const { data, isActive, completed } = props;
+  const { data, isActive } = props;
   const { title, id } = data;
+
+  const formContext = useContext(AddNewInternshipFormContext);
   const navigate = useNavigate();
 
-  const handleRoute = () => navigate(id);
+  let completed;
+
+  if (id === "mentor-details") {
+    completed = Object.values(formContext.internshipDescription[id]).length > 0;
+  } else {
+    completed = formContext.internshipDescription[id].length > 0;
+  }
 
   return (
     <Row justify="center" align="middle" className="field" id={id}>
@@ -25,7 +36,7 @@ const InternshipDescriptionField = (props) => {
           bodyStyle={{ padding: 20, width: "100%" }}
           hoverable
           bordered
-          onClick={handleRoute}
+          onClick={() => navigate(id)}
         >
           <Row justify="space-between" align="middle">
             <Col className="fieldCard__title">

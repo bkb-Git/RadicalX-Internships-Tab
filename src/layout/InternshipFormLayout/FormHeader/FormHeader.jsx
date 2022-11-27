@@ -29,6 +29,8 @@ const FormHeader = () => {
     internshipSurvey,
   } = formContext;
 
+  console.log(internshipGuide);
+
   const isFormSubmitted = () => {
     switch (currentStep) {
       case STEP.DESCRIPTION: {
@@ -60,10 +62,7 @@ const FormHeader = () => {
 
   const handleClick = () => {
     const isFinalStep = currentStep === 3;
-    formContext.setFormContext({
-      ...formContext,
-      step: isFinalStep ? currentStep : currentStep + 1,
-    });
+    formContext.setStep(isFinalStep ? currentStep : currentStep + 1);
   };
 
   const renderGoBack = () => {
@@ -95,7 +94,7 @@ const FormHeader = () => {
           className="formHeader__main__nextButton"
           onClick={handleClick}
         >
-          Continue to Next Step
+          {currentStep === 3 ? "Publish Internship" : "Continue to Next Step"}
           <ArrowRight styles={{ marginLeft: "1rem" }} />
         </Button>
       </Row>

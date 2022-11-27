@@ -8,13 +8,18 @@ export const defaultValue = {
     benefits: "",
     "intro-video": "",
     "mentor-details": "",
-    "recommended-roles": "",
+    "recommended-roles": [],
     links: "",
   },
-  internshipGuide: {},
+  internshipGuide: {
+    overview: [],
+    schedule: [],
+    resources: [],
+  },
   internshipSettings: {},
   internshipSurvey: {},
   step: 0,
+  setStep: () => {},
   setFormContext: () => {},
 };
 

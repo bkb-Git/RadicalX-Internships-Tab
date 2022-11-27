@@ -3,12 +3,11 @@ import { Tag } from "antd";
 import "./DescriptionCategoryTag.scss";
 
 const DescriptionCategoryTag = (props) => {
-  const { tag } = props;
-  const { name } = tag;
+  const { tag, handleClose } = props;
 
   return (
-    <Tag className="categoryTag" closable>
-      {name}
+    <Tag className="categoryTag" closable onClose={handleClose}>
+      {tag}
     </Tag>
   );
 };
