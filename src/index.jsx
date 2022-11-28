@@ -12,6 +12,7 @@ import InternshipSurvey from "pages/InternshipSurvey";
 import InternshipSettings from "pages/InternshipSettings";
 import InternshipDescriptionInput from "pages/InternshipDescription/InternshipDescriptionInput";
 import InternshipGuideInput from "pages/InternshipGuide/InternshipGuideInput";
+import InternshipSurveyInput from "pages/InternshipSurvey/InternshipSurveyInput";
 
 import "./styles/index.scss";
 
@@ -36,7 +37,9 @@ root.render(
           <Route path="guide" element={<InternshipGuide />}>
             <Route path=":fieldId" element={<InternshipGuideInput />} />
           </Route>
-          <Route path="survey" element={<InternshipSurvey />} />
+          <Route path="survey" element={<InternshipSurvey />}>
+            <Route path=":fieldId" element={<InternshipSurveyInput />} />
+          </Route>
           <Route path="settings" element={<InternshipSettings />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
