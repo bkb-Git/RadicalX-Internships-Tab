@@ -16,7 +16,7 @@ const ROUTES = {
 
 const InternshipFormLayout = () => {
   const [formContext, setFormContext] = useState(defaultValue);
-  const [step, setStep] = useState(defaultValue.step);
+  const [step, setStep] = useState(1);
 
   const navigate = useNavigate();
   const location = useLocation();

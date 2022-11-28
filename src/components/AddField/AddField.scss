@@ -1,13 +1,13 @@
 @import "/src/styles/variables";
 
-.add {
+.addWithMenu {
     height: 64px;
     margin-bottom: 1rem;
     padding-right: 10px;
 
     &__item {
-        padding-left: 10px;
         transition: all 0.3s linear;
+        padding-left: 10px;
 
         &__button {
             height: 64px;
@@ -25,6 +25,31 @@
                     stroke: white;
                 }
             }
+        }
+    }
+}
+
+.add {
+    height: 64px;
+    margin-bottom: 1rem;
+    border-radius: 16px;
+    border: 1px dashed $color-primary;
+    color: $color-primary;
+    transition: all 0.1s linear;
+
+    &__item {
+        &__button {
+            height: 64px;
+        }
+    }
+
+    &:hover {
+        background: $color-primary;
+        cursor: pointer;
+        color: white;
+
+        path {
+            stroke: white;
         }
     }
 }
