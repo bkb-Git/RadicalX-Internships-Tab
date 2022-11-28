@@ -1,0 +1,35 @@
+@import "/src/styles/variables";
+
+.guideFormItem {
+    margin-bottom: 1rem;
+
+    &__title {
+    }
+
+    &__input {
+        input {
+            border-radius: 16px;
+            padding: 10px 16px;
+        }
+    }
+
+    &__dragNdrop {
+        &__dragger {
+            padding: 15px 0;
+            border-radius: 12px !important;
+        }
+    }
+
+    &__fileNameList {
+        &__tag {
+            padding: 12px 16px;
+            border-radius: 20px;
+            background-color: adjust-color($color: $color-primary, $alpha: -0.8);
+            border-color: $color-primary;
+            color: $color-primary;
+            font-family: $font-primary;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+    }
+}

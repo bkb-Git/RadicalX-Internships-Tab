@@ -1,20 +1,23 @@
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import OverviewInput from "./OverviewInput/OverviewInput";
 import ResourcesInput from "./ResourcesInput";
 import ScheduleInput from "./ScheduleInput";
 
 import "./InternshipGuideInput.scss";
 
-const InternshipDescriptionInput = () => {
+const InternshipGuideInput = () => {
   const { fieldId } = useParams();
+  const subMenus = useOutletContext();
 
   const FIELDS = {
-    overview: <OverviewInput />,
-    schedule: <ScheduleInput />,
-    resources: <ResourcesInput />,
+    overview: OverviewInput,
+    schedule: ScheduleInput,
+    resources: ResourcesInput,
   };
 
-  return FIELDS[fieldId];
+  const InternshipGuideFormInput = FIELDS[fieldId];
+
+  return <InternshipGuideFormInput menus={subMenus} />;
 };
 
-export default InternshipDescriptionInput;
+export default InternshipGuideInput;

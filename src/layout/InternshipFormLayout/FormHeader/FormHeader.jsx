@@ -29,8 +29,6 @@ const FormHeader = () => {
     internshipSurvey,
   } = formContext;
 
-  console.log(internshipGuide);
-
   const isFormSubmitted = () => {
     switch (currentStep) {
       case STEP.DESCRIPTION: {

@@ -2,7 +2,7 @@ import { Col, Row, Space } from "antd";
 import { Outlet, useParams } from "react-router-dom";
 
 import InternshipGuideField from "components/InternshipGuideField";
-import AddField from "./AddChapter";
+import AddField from "../InternshipSurvey/AddSurvey";
 
 import "./InternshipGuide.scss";
 
@@ -35,6 +35,12 @@ const FIELDS = [
   },
 ];
 
+const FIELD__ID = {
+  overview: 0,
+  schedule: 1,
+  resources: 2,
+};
+
 const InternshipDescription = () => {
   const { fieldId } = useParams();
 
@@ -50,7 +56,7 @@ const InternshipDescription = () => {
       </Col>
       <Col span={14} className="internshipGuide__form">
         {/* Form Items are rendered here through react-router's outlet feature */}
-        <Outlet />
+        <Outlet context={FIELDS[FIELD__ID[fieldId]]?.subMenus} />
       </Col>
     </Row>
   );
