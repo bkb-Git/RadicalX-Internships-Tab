@@ -2,7 +2,7 @@ import { Col, Row, Space } from "antd";
 import { Outlet, useParams } from "react-router-dom";
 
 import InternshipDescriptionField from "components/InternshipDescriptionField";
-import AddField from "./AddField";
+import AddField from "components/AddField";
 
 import "./InternshipDescription.scss";
 
@@ -27,7 +27,7 @@ const InternshipDescription = () => {
           {FIELDS.map((field) => (
             <InternshipDescriptionField data={field} key={field.id} isActive={fieldId === field.id} />
           ))}
-          <AddField />
+          <AddField withMenu />
         </Space>
       </Col>
       <Col span={14} className="internshipDescription__form">

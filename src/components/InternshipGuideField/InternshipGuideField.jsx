@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
 import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import AddField from "components/AddField";
+import SubMenuField from "./SubMenuField";
 
 import { ReactComponent as Menu } from "../../assets/menu.svg";
 import { ReactComponent as ArrowRight } from "../../assets/arrow-right-field-icon.svg";
@@ -12,7 +14,7 @@ import "./InternshipGuideField.scss";
 
 const InternshipGuideField = (props) => {
   const { data, isActive } = props;
-  const { title, id } = data;
+  const { title, id, subMenus } = data;
 
   const formContext = useContext(AddNewInternshipFormContext);
   const navigate = useNavigate();
@@ -52,8 +54,24 @@ const InternshipGuideField = (props) => {
           bordered
           onClick={() => navigate(id)}
         >
-          <Row justify="center" align="top">
+          <Row justify="center" align="top" gutter={[0, 24]}>
             <Col span={24}>{renderTitle()}</Col>
+            <Row
+              gutter={[0, 10]}
+              justify="center"
+              align="middle"
+              className={isActive && "guideFieldCard__subMenus"}
+              style={{ width: "100%", display: isActive ? "flex" : "none" }}
+            >
+              {subMenus.map((menu) => (
+                <Col span={24} key={menu.id}>
+                  <SubMenuField name={menu.name} id={menu.id} />
+                </Col>
+              ))}
+              <Col span={24}>
+                <AddField withMenu={false} />
+              </Col>
+            </Row>
           </Row>
         </Card>
       </Col>

@@ -7,9 +7,32 @@ import AddField from "./AddChapter";
 import "./InternshipGuide.scss";
 
 const FIELDS = [
-  { title: "Overview", id: "overview" },
-  { title: "Schedule", id: "schedule" },
-  { title: "Resources", id: "resources" },
+  {
+    title: "Overview",
+    id: "overview",
+    subMenus: [
+      { name: "Brief", id: 0 },
+      { name: "Requirements", id: 1 },
+      { name: "Milestones", id: 2 },
+    ],
+  },
+  {
+    title: "Schedule",
+    id: "schedule",
+    subMenus: [
+      { name: "Duration", id: 0 },
+      { name: "Timeline", id: 1 },
+      { name: "Deliverables", id: 2 },
+    ],
+  },
+  {
+    title: "Resources",
+    id: "resources",
+    subMenus: [
+      { name: "Curated Resources", id: 0 },
+      { name: "Events", id: 1 },
+    ],
+  },
 ];
 
 const InternshipDescription = () => {
