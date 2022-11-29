@@ -1,5 +1,4 @@
 import { Form, Layout } from "antd";
-import { Content } from "antd/lib/layout/layout";
 import AddNewInternshipFormContext, { defaultValue } from "context/AddNewInternshipFormContext";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -14,9 +13,11 @@ const ROUTES = {
   3: "settings",
 };
 
+const { Content } = Layout;
+
 const InternshipFormLayout = () => {
   const [formContext, setFormContext] = useState(defaultValue);
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
 
   const navigate = useNavigate();
   const location = useLocation();

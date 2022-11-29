@@ -59,7 +59,7 @@ const RecommendedRolesInput = () => {
       </Col>
       <Col span={24} className="recommRolesInput">
         <Form.Item
-          name="category"
+          name="recommended-roles"
           initialValue={recommRoles[recommRoles.length - 1]}
           style={{ marginBottom: "0.2rem" }}
         >

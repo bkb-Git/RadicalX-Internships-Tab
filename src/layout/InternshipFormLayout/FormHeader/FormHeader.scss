@@ -13,6 +13,12 @@
         &__nextButton {
             @include mixins.flex(center, center, row);
             border-radius: 12px;
+
+            &--active {
+                path {
+                    stroke: white;
+                }
+            }
         }
 
         &__button {
