@@ -58,15 +58,22 @@ const FormHeader = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleNext = () => {
     const isFinalStep = currentStep === 3;
     formContext.setStep(isFinalStep ? currentStep : currentStep + 1);
+  };
+
+  const handleGoBack = () => {
+    const isFirstStep = currentStep === 0;
+
+    if (isFirstStep) return navigate("/internships", { replace: true });
+    return formContext.setStep(currentStep - 1);
   };
 
   const renderGoBack = () => {
     return (
       <Row justify="start" align="middle">
-        <Col className="formHeader__main__button" onClick={() => navigate("/internships", { replace: true })}>
+        <Col className="formHeader__main__button" onClick={handleGoBack}>
           <ArrowLeft styles={{ marginRight: "1rem" }} />
         </Col>
         Back
@@ -90,7 +97,7 @@ const FormHeader = () => {
           type="primary"
           size="large"
           className={`formHeader__main__nextButton ${isFormSubmitted() && "formHeader__main__nextButton--active"}`}
-          onClick={handleClick}
+          onClick={handleNext}
         >
           {currentStep === 3 ? "Publish Internship" : "Continue to Next Step"}
           <ArrowRight styles={{ marginLeft: "1rem" }} />
