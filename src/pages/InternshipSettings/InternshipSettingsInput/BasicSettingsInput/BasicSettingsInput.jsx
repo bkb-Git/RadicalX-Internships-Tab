@@ -22,8 +22,6 @@ const BasicSettingsInput = () => {
     security: basicSettings.security ? basicSettings.security : false,
   });
 
-  console.log(checked, basicSettings);
-
   const handleChange = (e) => {
     const {
       target: { id, value },

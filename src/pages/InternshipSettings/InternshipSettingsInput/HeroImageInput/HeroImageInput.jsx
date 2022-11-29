@@ -20,8 +20,6 @@ const HeroImageInput = () => {
     security: heroImage.security ? heroImage.security : false,
   });
 
-  console.log(checked, heroImage);
-
   const handleChange = (e) => {
     const {
       target: { id, value },
