@@ -7,7 +7,7 @@ const OverviewInput = (props) => {
   const { menus } = props;
 
   return (
-    <InternshipFormItemCard>
+    <InternshipFormItemCard scroll>
       {menus.map((menu) => (
         <InternshipGuideFormItem name={menu.name} formItemName={menu.name} key={menu.id} />
       ))}
