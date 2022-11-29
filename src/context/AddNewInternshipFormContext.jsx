@@ -16,7 +16,10 @@ export const defaultValue = {
     schedule: "",
     resources: "",
   },
-  internshipSettings: {},
+  internshipSettings: {
+    basicSettings: "",
+    heroImage: "",
+  },
   internshipSurvey: {
     survey1: "",
     survey2: "",

@@ -19,11 +19,14 @@ const InternshipDescriptionField = (props) => {
 
   let completed;
 
-  if (id === "mentor-details") {
+  if (id === "mentor-details" || "basicSettings") {
     completed = Object.values(formContext[form][id]).length > 0;
   } else {
     completed = formContext[form][id].length > 0;
   }
+
+  // console.log(completed);
+  // console.log(formContext[form][id]);
 
   return (
     <Row justify="center" align="middle" className="field" id={id}>
