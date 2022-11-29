@@ -89,7 +89,7 @@ const FormHeader = () => {
           disabled={!isFormSubmitted()}
           type="primary"
           size="large"
-          className="formHeader__main__nextButton"
+          className={`formHeader__main__nextButton ${isFormSubmitted() && "formHeader__main__nextButton--active"}`}
           onClick={handleClick}
         >
           {currentStep === 3 ? "Publish Internship" : "Continue to Next Step"}
@@ -105,7 +105,7 @@ const FormHeader = () => {
         <Step title="Internship Description" icon={<StepsIcon done={currentStep > 0} />} />
         <Step title="Internship Guide" icon={<StepsIcon done={currentStep > 1} />} />
         <Step title="Survey" icon={<StepsIcon done={currentStep > 2} />} />
-        <Step title="Settings" icon={<StepsIcon done={currentStep === 3 && !isFormSubmitted()} />} />
+        <Step title="Settings" icon={<StepsIcon done={currentStep === 3 && isFormSubmitted()} />} />
       </Steps>
     );
   };
