@@ -27,6 +27,7 @@ const FormHeader = () => {
     internshipGuide,
     internshipSettings,
     internshipSurvey,
+    handleFormFinish,
   } = formContext;
 
   const isFormSubmitted = () => {
@@ -97,7 +98,7 @@ const FormHeader = () => {
           type="primary"
           size="large"
           className={`formHeader__main__nextButton ${isFormSubmitted() && "formHeader__main__nextButton--active"}`}
-          onClick={handleNext}
+          onClick={currentStep === 3 ? handleFormFinish : handleNext}
         >
           {currentStep === 3 ? "Publish Internship" : "Continue to Next Step"}
           <ArrowRight styles={{ marginLeft: "1rem" }} />
