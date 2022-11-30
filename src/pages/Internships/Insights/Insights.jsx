@@ -65,12 +65,15 @@ const Insights = () => {
 
   useEffect(() => {
     setTimeout(() => {
+      const {
+        current: { offsetWidth = facetDimensions.width, offsetHeight = facetDimensions.height },
+      } = graphContainerRef;
       setFaceDimensions({
-        width: graphContainerRef.current.offsetWidth,
-        height: graphContainerRef.current.offsetHeight,
+        width: offsetWidth,
+        height: offsetHeight,
       });
       setGraph({ data: MOCK_DATA, loading: false });
-    }, 2500);
+    }, 500);
   }, []);
 
   const config = {

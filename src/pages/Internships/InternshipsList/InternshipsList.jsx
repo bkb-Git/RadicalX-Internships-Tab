@@ -62,7 +62,7 @@ const InternshipsList = () => {
       setListData([...listData, ...fetchedData]);
       setLoading(false);
       setListLoading(false);
-    }, 2500);
+    }, 500);
   };
 
   useEffect(() => {
