@@ -19,7 +19,7 @@ const InternshipDescriptionField = (props) => {
 
   let completed;
 
-  if (id === "mentor-details") {
+  if (id === "mentor-details" || id === "basicSettings" || id === "heroImage") {
     completed = Object.values(formContext[form][id]).length > 0;
   } else {
     completed = formContext[form][id].length > 0;
