@@ -1,0 +1,18 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.recommRolesInput {
+    input {
+        padding: 10px 16px;
+        border-radius: 16px;
+    }
+
+    button {
+        height: 44px;
+        width: auto;
+        padding: 10px 16px;
+        border-top-right-radius: 20px !important;
+        border-bottom-right-radius: 20px !important;
+        border-left-color: rgba(0, 0, 0, 0);
+    }
+}

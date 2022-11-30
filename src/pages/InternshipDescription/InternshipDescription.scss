@@ -1,0 +1,17 @@
+.internshipDescription {
+    height: 100%;
+
+    &__fields {
+        min-height: 100%;
+        overflow: auto;
+
+        &__list {
+            width: calc(100% - 12px);
+            position: absolute;
+        }
+    }
+
+    &__form {
+        height: 100%;
+    }
+}

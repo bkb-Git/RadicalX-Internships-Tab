@@ -1,0 +1,20 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.subMenuFieldCard {
+    // @include mixins.flex(center, center, row);
+    border-radius: 16px;
+    height: 64px;
+
+    &__title {
+        @include mixins.flex(center, center, row);
+        // column-gap: 1rem;
+        font-family: $font-primary;
+        font-weight: 500;
+        font-size: 1.5rem;
+    }
+
+    &__icon {
+        @include mixins.flex(center, center, row);
+    }
+}
