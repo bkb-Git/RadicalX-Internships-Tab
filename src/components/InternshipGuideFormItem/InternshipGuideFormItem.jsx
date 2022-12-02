@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Col, Input, Row, Tag, Typography, Upload, Form } from "antd";
 
 import { ReactComponent as UploadIcon } from "assets/document-upload.svg";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import "./InternshipGuideFormItem.scss";
 

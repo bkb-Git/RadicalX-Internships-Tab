@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Col, Typography, Form, Input, Button } from "antd";
 
 import InternshipFormItemCard from "components/InternshipFormItemCard";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import { ReactComponent as AddIcon } from "assets/addIcon.svg";
 

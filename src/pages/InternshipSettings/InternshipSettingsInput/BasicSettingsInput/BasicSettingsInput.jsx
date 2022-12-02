@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Checkbox, Col, Form, Input, Row, Typography } from "antd";
 import InternshipFormItemCard from "components/InternshipFormItemCard";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import "./BasicSettingsInput.scss";
 

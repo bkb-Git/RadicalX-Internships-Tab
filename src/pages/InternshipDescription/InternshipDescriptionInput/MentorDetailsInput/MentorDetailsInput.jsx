@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Avatar, Badge, Col, Form, Input, Row, Typography } from "antd";
 
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import { ReactComponent as ProfileIcon } from "assets/profile.svg";
 import { ReactComponent as LinkIcon } from "assets/link.svg";

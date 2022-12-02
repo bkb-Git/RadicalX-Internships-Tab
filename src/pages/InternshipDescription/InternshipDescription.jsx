@@ -5,6 +5,8 @@ import InternshipStandardField from "components/InternshipStandardField";
 import AddField from "components/AddField";
 
 import "./InternshipDescription.scss";
+import { useContext } from "react";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 const FIELDS = [
   { title: "Category", id: "category" },
@@ -19,6 +21,7 @@ const FIELDS = [
 
 const InternshipDescription = () => {
   const { fieldId } = useParams();
+  const { loading } = useContext(AddNewInternshipFormContext);
 
   return (
     <Row justify="center" align="middle" gutter={[24, 0]} className="internshipDescription">
@@ -30,6 +33,7 @@ const InternshipDescription = () => {
               data={field}
               key={field.id}
               isActive={fieldId === field.id}
+              loading={loading}
             />
           ))}
           <AddField withMenu />

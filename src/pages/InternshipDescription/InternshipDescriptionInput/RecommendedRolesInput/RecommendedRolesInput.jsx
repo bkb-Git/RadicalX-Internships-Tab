@@ -2,7 +2,7 @@ import { Col, Form, Input, Row, Space, Typography } from "antd";
 import { useContext } from "react";
 
 import InternshipFormItemCard from "components/InternshipFormItemCard";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 import DescriptionCategoryTag from "components/DescriptionCategoryTag";
 
 import "./RecommendedRolesInput.scss";

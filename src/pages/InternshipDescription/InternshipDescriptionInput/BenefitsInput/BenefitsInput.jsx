@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Col, Input, Typography, Form } from "antd";
 
 import InternshipFormItemCard from "components/InternshipFormItemCard";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import "./BenefitsInput.scss";
 

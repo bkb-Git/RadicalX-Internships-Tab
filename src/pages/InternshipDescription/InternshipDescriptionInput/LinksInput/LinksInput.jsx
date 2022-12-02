@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Button, Col, Form, Input, Typography } from "antd";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import InternshipFormItemCard from "components/InternshipFormItemCard";
 

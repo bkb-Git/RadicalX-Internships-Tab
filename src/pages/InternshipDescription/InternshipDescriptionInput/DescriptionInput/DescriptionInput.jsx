@@ -1,6 +1,6 @@
 import { Col, Typography, Form, Input } from "antd";
 import InternshipFormItemCard from "components/InternshipFormItemCard";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 import { useContext } from "react";
 
 import "./DescriptionInput.scss";
