@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Col, Form, Row, Tag, Typography, Upload } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 import InternshipFormItemCard from "components/InternshipFormItemCard";
 
 import { ReactComponent as UploadIcon } from "assets/document-upload.svg";

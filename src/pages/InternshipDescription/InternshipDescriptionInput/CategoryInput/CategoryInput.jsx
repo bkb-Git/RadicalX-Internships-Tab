@@ -1,7 +1,7 @@
 import { Col, Input, Row, Typography, Form, Space } from "antd";
 import DescriptionCategoryTag from "components/DescriptionCategoryTag";
 import InternshipFormItemCard from "components/InternshipFormItemCard";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 import { useContext } from "react";
 
 import "./CategoryInput.scss";

@@ -1,17 +1,18 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import { ReactComponent as Menu } from "assets/menu.svg";
 import { ReactComponent as ArrowRight } from "assets/arrow-right-field-icon.svg";
 import { ReactComponent as TickCircle } from "assets/tick-circle.svg";
+import { LoadingOutlined } from "@ant-design/icons";
 
 import "./InternshipStandardField.scss";
 
 const InternshipDescriptionField = (props) => {
-  const { data, isActive, form } = props;
+  const { data, isActive, form, loading } = props;
   const { title, id } = data;
 
   const formContext = useContext(AddNewInternshipFormContext);
@@ -22,7 +23,7 @@ const InternshipDescriptionField = (props) => {
   if (id === "mentor-details" || id === "basicSettings" || id === "heroImage") {
     completed = Object.values(formContext[form][id]).length > 0;
   } else {
-    completed = formContext[form][id].length > 0;
+    completed = formContext[form][id]?.length > 0;
   }
 
   return (
@@ -41,10 +42,10 @@ const InternshipDescriptionField = (props) => {
           <Row justify="space-between" align="middle">
             <Col className="fieldCard__title">
               {title}
-              {completed && <TickCircle />}
+              {completed && !loading && <TickCircle />}
             </Col>
             <Col className={`fieldCard__icon ${isActive && "fieldCard__icon--active"}`}>
-              <ArrowRight />
+              {loading ? <Spin indicator={<LoadingOutlined spin />} /> : <ArrowRight />}
             </Col>
           </Row>
         </Card>

@@ -2,7 +2,7 @@ import { Card, Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 import AddField from "components/AddField";
 import SubMenuField from "./SubMenuField";
 
@@ -19,7 +19,7 @@ const InternshipGuideField = (props) => {
   const formContext = useContext(AddNewInternshipFormContext);
   const navigate = useNavigate();
 
-  const completed = Object.values(formContext.internshipGuide[id]).length > 0;
+  const completed = Object.values(formContext.internshipGuide[id]).find((value) => value || value.length > 0);
 
   //   if (id === "mentor-details") {
   //     completed =;

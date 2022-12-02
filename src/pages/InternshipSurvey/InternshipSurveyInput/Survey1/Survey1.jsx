@@ -3,7 +3,7 @@ import { Button, Col, Input, Typography, Form } from "antd";
 import { ReactComponent as AddIcon } from "assets/addIcon.svg";
 
 import InternshipFormItemCard from "components/InternshipFormItemCard";
-import AddNewInternshipFormContext from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 import { useContext } from "react";
 
 import "./Survey1.scss";
