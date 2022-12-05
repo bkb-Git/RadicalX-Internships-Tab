@@ -44,8 +44,10 @@ const generateMockDataList = (count) => {
 const InternshipsList = () => {
   const [loading, setLoading] = useState(false);
   const [listLoading, setListLoading] = useState(true);
+
   const [listData, setListData] = useState([]);
   const [page, setPage] = useState(0);
+
   const pageSize = 10;
 
   const loadMoreData = () => {
@@ -60,7 +62,7 @@ const InternshipsList = () => {
       setListData([...listData, ...fetchedData]);
       setLoading(false);
       setListLoading(false);
-    }, 2500);
+    }, 500);
   };
 
   useEffect(() => {
@@ -79,6 +81,29 @@ const InternshipsList = () => {
     );
   };
 
+  const renderScrollList = () => {
+    return (
+      <InfiniteScroll
+        dataLength={listData.length}
+        next={() => {
+          setPage(page + 1);
+
+          loadMoreData();
+        }}
+        hasMore={listData.length < 50}
+        loader={!listLoading && <InternshipPostSkeleton widths={categoryWidths} />}
+        endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+        scrollableTarget="internshipList"
+      >
+        <List
+          loading={listLoading}
+          dataSource={listData}
+          renderItem={(item) => <InternshipPost post={item} widths={categoryWidths} key={item.id} />}
+        />
+      </InfiniteScroll>
+    );
+  };
+
   return (
     <Card bodyStyle={{ height: "100%", padding: "0px" }} className="internshipListCard">
       <Row style={{ height: "100%" }}>
@@ -86,24 +111,7 @@ const InternshipsList = () => {
           {renderCategoryRow()}
         </Col>
         <Col span={24} className="internshipListCard__list" id="internshipList">
-          <InfiniteScroll
-            dataLength={listData.length}
-            next={() => {
-              setPage(page + 1);
-
-              loadMoreData();
-            }}
-            hasMore={listData.length < 50}
-            loader={!listLoading && <InternshipPostSkeleton widths={categoryWidths} />}
-            endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
-            scrollableTarget="internshipList"
-          >
-            <List
-              loading={listLoading}
-              dataSource={listData}
-              renderItem={(item) => <InternshipPost post={item} widths={categoryWidths} key={item.id} />}
-            />
-          </InfiniteScroll>
+          {renderScrollList()}
         </Col>
       </Row>
     </Card>

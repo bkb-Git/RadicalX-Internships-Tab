@@ -1,0 +1,23 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.survey2 {
+    &__title {
+    }
+    &__button {
+        @include mixins.flex(center, center, row);
+        column-gap: 0.5rem;
+        padding: 8px 16px;
+        border-radius: 12px;
+        border: 1px dashed $color-primary;
+        box-sizing: content-box;
+        color: $color-primary;
+    }
+
+    &__input {
+        input {
+            border-radius: 16px;
+            padding: 10px 16px;
+        }
+    }
+}

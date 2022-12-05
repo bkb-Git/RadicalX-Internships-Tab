@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { Chart } from "@antv/g2";
 import { Col, List, Row, Statistic } from "antd";
-// import { ReactComponent as Candidates } from "../../assets/Qualified Candidates.svg";
+import { Column } from "@ant-design/charts";
 
 import "./InternshipPost.scss";
 
@@ -33,37 +31,18 @@ const InternshipPost = (props) => {
   const { post, widths } = props;
   const { role, description, period, dateCreated, totalEnrolled, qualifiedCandidates, Icons, id } = post;
 
-  const [componentMounted, setComponentMounted] = useState(false);
-  const [prevComponentMounted, setPrevComponentMounted] = useState(false);
+  // const internshipPostChartContainerId = `internship-post-${id}`;
 
-  const internshipPostChartContainerId = `internship-post-${id}`;
-
-  const renderColumnGraph = () => {
-    const chart = new Chart({
-      container: internshipPostChartContainerId,
-      autoFit: true,
-      height: 60,
-      width: 160,
-    });
-
-    chart.data(data);
-    chart.scale("y", {
-      nice: true,
-    });
-
-    chart.tooltip({
-      showMarkers: false,
-    });
-
-    chart.axis("y", false);
-    chart.axis("x", false);
-    chart.tooltip(false);
-    chart.interaction("active-region");
-
-    chart.tooltip({
-      position: "right",
-      showMarkers: false,
-      title: (title, datum) => datum.y,
+  const config = {
+    data,
+    xField: "x",
+    yField: "y",
+    renderer: "svg",
+    tooltip: {
+      position: "bottom",
+      formatter: (datum) => {
+        return { title: datum.y };
+      },
       domStyles: {
         "g2-tooltip": {
           backgroundColor: "#793ef5",
@@ -73,25 +52,30 @@ const InternshipPost = (props) => {
         },
         "g2-tooltip-list": { display: "none" },
       },
-    });
-
-    chart
-      .interval()
-      .position("x*y")
-      .style("y", (val) => {
-        if (val === qualifiedCandidates) return { fill: "#793ef5", radius: [20, 20, 0, 0] };
-        return { fill: "#C4C4C4", radius: [20, 20, 0, 0] };
-      });
-
-    return chart.render();
+    },
+    color: ({ x }) => {
+      const obj = data.find((item) => item.y === qualifiedCandidates);
+      if (obj.x === x) return "#793ef5";
+      return "#C4C4C4";
+    },
+    yAxis: {
+      label: false,
+      grid: {
+        line: false,
+      },
+    },
+    xAxis: {
+      label: false,
+      tickLine: false,
+      line: false,
+      grid: {
+        line: false,
+      },
+    },
+    columnStyle: {
+      radius: [20, 20, 0, 0],
+    },
   };
-
-  useEffect(() => {
-    if (!prevComponentMounted && componentMounted) renderColumnGraph();
-
-    setPrevComponentMounted(componentMounted);
-    setComponentMounted(true);
-  }, [componentMounted, prevComponentMounted]);
 
   return (
     <List.Item key={id} className="post">
@@ -105,7 +89,9 @@ const InternshipPost = (props) => {
         <Col {...widths.totalEnrolled} className="post__enrolled">
           <Statistic value={totalEnrolled} className="post__enrolled__stat" />
         </Col>
-        <Col {...widths.qualifiedCandidates} className="post__candidates" id={internshipPostChartContainerId} />
+        <Col {...widths.qualifiedCandidates} className="post__candidates">
+          <Column {...config} width={230} height={32} autoFit={false} />
+        </Col>
         <Col {...widths.icons} className="post__icons">
           <Icons />
         </Col>

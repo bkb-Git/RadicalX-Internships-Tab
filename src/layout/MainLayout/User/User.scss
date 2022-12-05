@@ -2,8 +2,18 @@
     position: absolute;
     bottom: 34px;
     left: 20px;
+    // padding: 5px;
 
     &__name {
         font-size: 1.6rem;
+    }
+
+    &__avatar {
+        transition: all 0.2s linear;
+        &:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+            cursor: pointer;
+        }
     }
 }

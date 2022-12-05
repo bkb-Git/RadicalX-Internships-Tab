@@ -1,0 +1,23 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.linksInput {
+    padding: 10px 16px;
+    border-radius: 16px;
+    color: #2f30318a;
+
+    path {
+        stroke: #8a8b8c;
+    }
+}
+
+.AddLinksButton {
+    @include mixins.flex(center, center, row);
+    background: white;
+    color: $color-primary;
+    border: 1px solid $color-primary;
+    border-style: dashed;
+    padding: 8px 16px;
+    box-sizing: content-box;
+    border-radius: 12px;
+}

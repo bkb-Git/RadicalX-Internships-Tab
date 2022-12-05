@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
-import DataSet from "@antv/data-set";
+import { Facet } from "@ant-design/charts";
 import { Button, Card, Col, Row, Space, Typography } from "antd";
-import { Chart } from "@antv/g2";
+import { useEffect, useState, useRef } from "react";
+
 import { ReactComponent as Calendar } from "../../../assets/calendar-2.svg";
 
 import "./Insights.scss";
 
-const data = [
+const MOCK_DATA = [
   { category: "Total Enrollments", day: "Monday", value: 13324, total: "100,000" },
   { category: "Total Enrollments", day: "Tuesday", value: 16662 },
   { category: "Total Enrollments", day: "Wednesday", value: 18136 },
@@ -55,95 +55,107 @@ const data = [
 const { Title, Text } = Typography;
 
 const Insights = () => {
-  const [componentMounted, setComponentMounted] = useState(false);
-  const [prevComponentMounted, setPrevComponentMounted] = useState(false);
+  const [facetDimensions, setFaceDimensions] = useState({ width: 0, height: 174 });
+  const [graph, setGraph] = useState({
+    loading: true,
+    data: [],
+  });
 
-  const renderAreaChart = () => {
-    const ds = new DataSet();
-    const dv = ds.createView().source(data);
-
-    const chart = new Chart({
-      container: "area-chart",
-      autoFit: true,
-      height: 175,
-      width: "100%",
-      padding: [30, 5, 30, 30],
-    });
-
-    chart.data(dv.rows);
-    chart.scale({
-      value: {
-        max: 20000,
-        min: -2500,
-        nice: true,
-      },
-      day: {
-        range: [0, 1],
-        // eslint-disable-next-line no-sparse-arrays
-        ticks: [, "End"],
-      },
-    });
-
-    chart.tooltip(false);
-    chart.axis("value", false);
-
-    chart.facet("rect", {
-      fields: ["category"],
-      columnTitle: {
-        style: {
-          fontSize: 12,
-          textAlign: "center",
-          fontFamily: "Space Grotesk",
-          fontWeight: 500,
-          fill: "#5C5C5C",
-        },
-        position: "bottom",
-        offsetX: 70,
-        offsetY: 30,
-      },
-      padding: 0,
-      eachView: (view, facet) => {
-        const facetData = facet.data;
-
-        view.area().position("day*value").shape("smooth").style({ fill: "#793ef5" });
-        view.axis("day", {
-          grid: {
-            line: {
-              style: {
-                lineDash: [0, 0],
-                lineWidth: 2,
-                stroke: "#EFEFEF",
-              },
-            },
-          },
-          label: {
-            style: {
-              fontSize: 21,
-              textAlign: "center",
-              fontFamily: "Space Grotesk",
-              fontWeight: 500,
-              fill: "#5C5C5C",
-            },
-            offsetX: -70,
-            offsetY: -18,
-            formatter: (val, datum, index) => `${facetData[0].total} `,
-          },
-          line: false,
-        });
-        view.interaction("element-highlight");
-      },
-    });
-
-    chart.interaction("element-highlight");
-    chart.render();
-  };
+  const graphContainerRef = useRef();
 
   useEffect(() => {
-    if (!prevComponentMounted && componentMounted) renderAreaChart();
+    setTimeout(() => {
+      const {
+        current: { offsetWidth = facetDimensions.width, offsetHeight = facetDimensions.height },
+      } = graphContainerRef;
+      setFaceDimensions({
+        width: offsetWidth,
+        height: offsetHeight,
+      });
+      setGraph({ data: MOCK_DATA, loading: false });
+    }, 500);
+  }, []);
 
-    setPrevComponentMounted(componentMounted);
-    setComponentMounted(true);
-  }, [componentMounted, prevComponentMounted]);
+  const config = {
+    type: "rect",
+    data: graph.data,
+    limitInPlot: true,
+    tooltip: false,
+    columnTitle: {
+      style: {
+        fontSize: 12,
+        textAlign: "center",
+        fontFamily: "Space Grotesk",
+        fontWeight: 500,
+        fill: "#5C5C5C",
+      },
+      position: "bottom",
+      offsetY: 25,
+    },
+    eachView: (view, f) => {
+      const viewData = f.data;
+
+      return {
+        type: "area",
+        options: {
+          data: viewData,
+          xField: "day",
+          yField: "value",
+          interactions: {
+            type: "element-highlight",
+          },
+          line: false,
+          smooth: true,
+          xAxis: {
+            grid: {
+              line:
+                viewData[0].category === "Total Enrollments"
+                  ? false
+                  : {
+                      style: {
+                        lineDash: [0, 0],
+                        lineWidth: 2,
+                        stroke: "#EFEFEF",
+                      },
+                    },
+            },
+            label: {
+              formatter: () => `${viewData[0].total}`,
+              style: {
+                fontSize: 21,
+                textAlign: "center",
+                fontFamily: "Space Grotesk",
+                fontWeight: 500,
+                fill: "#5C5C5C",
+              },
+              offsetY: -30,
+            },
+            line: false,
+            range: [0, 1],
+            tickCount: 1,
+            tickLine: false,
+          },
+          yAxis: {
+            grid: {
+              line: false,
+            },
+            label: false,
+            min: -8000,
+            max: 22000,
+            nice: true,
+          },
+          areaStyle: {
+            fill: "#793ef5",
+            fillOpacity: 0.8,
+          },
+        },
+      };
+    },
+    padding: [5, 0, 20, 0],
+    appendPadding: [0, 15],
+    renderer: "svg",
+    fields: ["category"],
+  };
 
   const timeline = () => {
     return (
@@ -192,7 +204,9 @@ const Insights = () => {
           <Col span={24} className="insights__details__timeline">
             {timeline()}
           </Col>
-          <Col span={24} className="insights__details__graphics" id="area-chart" />
+          <Col span={24} className="insights__details__graphics" ref={graphContainerRef}>
+            <Facet height={facetDimensions.height} width={facetDimensions.width} loading={graph.loading} {...config} />
+          </Col>
         </Row>
       </Col>
     );
