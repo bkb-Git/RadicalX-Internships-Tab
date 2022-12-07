@@ -50,8 +50,6 @@ const FormHeader = () => {
 
   const [api, contextHolder] = notification.useNotification();
 
-  // console.log(internshipGuide);
-
   // Form values test function defined here //
 
   const isFormSubmitted = () => {
