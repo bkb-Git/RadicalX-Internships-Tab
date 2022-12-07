@@ -33,7 +33,7 @@ const RecommendedRolesInput = () => {
   return (
     <InternshipFormItemCard>
       <Col span={24}>
-        <Title level={4}>Recommended Roles</Title>
+        <Title level={4}>Web Links & Resources</Title>
       </Col>
       <Col span={24}>
         <Form.Item name="links" initialValue={links} style={{ marginBottom: "0.2rem" }}>
