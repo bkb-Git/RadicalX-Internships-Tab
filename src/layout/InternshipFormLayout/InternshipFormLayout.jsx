@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
-import { doc, updateDoc } from "firebase/firestore";
-import db from "firebase";
+import { updateDoc } from "firebase/firestore";
 
-import { Button, Form, Layout, Modal, Result } from "antd";
+import { Button, Form, Layout, Modal, notification, Result } from "antd";
 
-import {
-  AddNewInternshipFormContext,
-  AddNewInternshipFormProvider,
-  defaultValue,
-} from "context/AddNewInternshipFormContext";
+import { AddNewInternshipFormProvider } from "context/AddNewInternshipFormContext";
 
 import FormHeader from "./FormHeader";
 
@@ -31,6 +26,10 @@ const InternshipFormLayout = () => {
   const [step, setStep] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Notification API //
+
+  const [api, contextHolder] = notification.useNotification();
+
   // React-router-dom hook functions //
 
   const navigate = useNavigate();
@@ -40,21 +39,29 @@ const InternshipFormLayout = () => {
 
   const handleCancel = () => setIsModalOpen(false);
 
-  const handleOk = (ref) => {
-    const docRef = doc(db, "internships", ref);
+  const handleOk = () => navigate("/internships", { replace: true });
 
-    updateDoc(docRef, defaultValue)
+  const handleFormFinish = (docRef, setSubmitting) => {
+    updateDoc(docRef, "formFinished", true)
       .then(
         () => {
-          navigate("/internships", { replace: true });
-          console.log("successfuly reset");
+          setSubmitting(false);
+          setIsModalOpen(true);
         },
-        () => console.log("not successful")
+        () =>
+          api.error({
+            message: "Failed to Submit Internship",
+            placement: "bottomLeft",
+          })
       )
-      .then();
+      .catch((err) =>
+        api.error({
+          message: "Failed to Submit Document",
+          description: err.message,
+          placement: "bottomLeft",
+        })
+      );
   };
-
-  const handleFormFinish = () => setIsModalOpen(!isModalOpen);
 
   // React life-cycle method that handles current step view //
 
@@ -66,8 +73,7 @@ const InternshipFormLayout = () => {
 
   // Render functions for views //
 
-  const renderModal = (val) => {
-    const { documentRef } = val;
+  const renderModal = () => {
     return (
       <Modal centered open={isModalOpen} footer={null}>
         <Result
@@ -75,12 +81,7 @@ const InternshipFormLayout = () => {
           title="Successfully Published Internship!"
           subTitle="Thanks for partnering with us."
           extra={[
-            <Button
-              type="primary"
-              key="goBackHome"
-              onClick={() => handleOk(documentRef)}
-              style={{ borderRadius: "12px" }}
-            >
+            <Button type="primary" key="goBackHome" onClick={handleOk} style={{ borderRadius: "12px" }}>
               Go Back Home
             </Button>,
             <Button key="cancel" onClick={handleCancel} style={{ borderRadius: "12px" }}>
@@ -102,7 +103,8 @@ const InternshipFormLayout = () => {
           </Form>
         </Content>
       </Layout>
-      <AddNewInternshipFormContext.Consumer>{(value) => renderModal(value)}</AddNewInternshipFormContext.Consumer>
+      {renderModal()}
+      {contextHolder}
     </AddNewInternshipFormProvider>
   );
 };

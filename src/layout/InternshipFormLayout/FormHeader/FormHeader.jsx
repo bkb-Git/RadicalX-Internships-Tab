@@ -1,10 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Col, notification, Row, Steps, Typography } from "antd";
-import { doc, updateDoc } from "firebase/firestore";
-
-import db from "firebase";
+import { updateDoc } from "firebase/firestore";
 
 import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
@@ -32,6 +30,8 @@ const FORMS = {
 };
 
 const FormHeader = () => {
+  const [submitting, setSubmitting] = useState(false);
+
   // React-router-dom hook //
   const navigate = useNavigate();
 
@@ -46,11 +46,11 @@ const FormHeader = () => {
     handleFormFinish,
   } = formContext;
 
+  useEffect(() => {}, [submitting]);
+
   // Notification API //
 
   const [api, contextHolder] = notification.useNotification();
-
-  // console.log(internshipGuide);
 
   // Form values test function defined here //
 
@@ -93,9 +93,9 @@ const FormHeader = () => {
 
   const handleNext = () => {
     const isFinalStep = currentStep === STEP.SETTINGS;
-    const { documentRef } = formContext;
+    const { docRef } = formContext;
 
-    const docRef = doc(db, "internships", documentRef);
+    if (isFinalStep) setSubmitting(true);
 
     updateDoc(docRef, FORMS[currentStep], { ...formContext[FORMS[currentStep]] })
       .then(
@@ -105,7 +105,7 @@ const FormHeader = () => {
             placement: "bottomLeft",
           });
 
-          if (isFinalStep) return handleFormFinish();
+          if (isFinalStep) return handleFormFinish(docRef, setSubmitting);
           return formContext.setStep(isFinalStep ? currentStep : currentStep + 1);
         },
         () =>
@@ -152,16 +152,22 @@ const FormHeader = () => {
   };
 
   const renderActionButton = () => {
+    const buttonText = () => {
+      if (currentStep === 3) return "Publish Internship";
+      if (submitting) return "";
+      return "Continue to Next Step";
+    };
     return (
       <Row justify="end" align="middle">
         <Button
           disabled={!isFormSubmitted()}
+          loading={submitting}
           type="primary"
           size="large"
           className={`formHeader__main__nextButton ${isFormSubmitted() && "formHeader__main__nextButton--active"}`}
           onClick={handleNext}
         >
-          {currentStep === 3 ? "Publish Internship" : "Continue to Next Step"}
+          {buttonText()}
           <ArrowRight styles={{ marginLeft: "1rem" }} />
         </Button>
       </Row>

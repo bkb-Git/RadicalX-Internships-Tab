@@ -1,11 +1,11 @@
-import { CheckCircleOutlined, LoadingOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, Loading3QuartersOutlined } from "@ant-design/icons";
 
 import "./StepsIcon.scss";
 
 const StepsIcon = (props) => {
   const { done } = props;
 
-  return done ? <CheckCircleOutlined /> : <LoadingOutlined spin />;
+  return done ? <CheckCircleOutlined /> : <Loading3QuartersOutlined />;
 };
 
 export default StepsIcon;

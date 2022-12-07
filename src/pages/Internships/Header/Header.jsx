@@ -1,5 +1,12 @@
-import { Button, Row, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
+
+import { Button, notification, Row, Typography } from "antd";
+
+import db from "firebase";
+import { addDoc, collection } from "firebase/firestore";
+
+import { defaultValue } from "context/AddNewInternshipFormContext";
+
 import { ReactComponent as PlusIcon } from "../../../assets/add-square.svg";
 
 import "./Header.scss";
@@ -9,8 +16,20 @@ const { Title } = Typography;
 const Header = () => {
   const navigate = useNavigate();
 
+  // Notification API //
+
+  const [api, contextHolder] = notification.useNotification();
+
+  // In this handle a new document is created and its reference stored in localStorage //
+
   const handleRoute = () => {
-    return navigate("add");
+    const internshipCol = collection(db, "internships");
+    addDoc(internshipCol, defaultValue)
+      .then((value) => {
+        localStorage.setItem("docId", value.id);
+      })
+      .then(() => navigate("add"))
+      .catch((err) => api.error({ message: err.message, placement: "bottomLeft" }));
   };
 
   return (
@@ -27,6 +46,7 @@ const Header = () => {
       >
         Create New Internship
       </Button>
+      {contextHolder}
     </Row>
   );
 };

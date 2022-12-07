@@ -26,11 +26,16 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        {/* Main View is routed here */}
+
         <Route path="/" element={<MainLayout />}>
           <Route index element={<PageNotFound />} />
           <Route path="internships" element={<Internships />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
+
+        {/* Add New Internship view routed here */}
+
         <Route path="internships/add" element={<InternshipFormLayout />}>
           <Route path="description" element={<InternshipDescription />}>
             <Route path=":fieldId" element={<InternshipDescriptionInput />} />
@@ -45,6 +50,8 @@ root.render(
             <Route path=":fieldId" element={<InternshipSettingsInput />} />
           </Route>
         </Route>
+
+        {/* Page 404 route define here */}
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
