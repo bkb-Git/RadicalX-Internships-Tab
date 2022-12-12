@@ -1,8 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Input, Row, Typography } from "antd";
+import { Button, Checkbox, Col, Form, Input, message, Row, Typography } from "antd";
 
 import { ReactComponent as RadicalXLogo } from "assets/RadicallX-Black-Logo 1.svg";
+import { auth } from "firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./UserLoginForm.scss";
@@ -10,10 +13,28 @@ import "./UserLoginForm.scss";
 const { Title } = Typography;
 
 const UserLoginForm = () => {
+  const [loading, setLoading] = useState(false);
+
+  // Message API //
+
+  const [messageApi, contextHolder] = message.useMessage();
+
   // Handler Functions //
 
   const handleFinish = (values) => {
-    console.log(values);
+    const { email, password } = values;
+    setLoading(true);
+    signInWithEmailAndPassword(auth, email, password).then(
+      () => {
+        setLoading(false);
+      },
+      (err) => {
+        messageApi.open({
+          type: "error",
+          content: err.message,
+        });
+      }
+    );
   };
 
   // Render views for form items //
@@ -80,7 +101,7 @@ const UserLoginForm = () => {
   const renderSubmitButton = () => {
     return (
       <Form.Item className="loginForm__submit">
-        <Button block type="primary" htmlType="submit" className="loginForm__submit__button">
+        <Button block type="primary" htmlType="submit" className="loginForm__submit__button" loading={loading}>
           Login
         </Button>
       </Form.Item>
@@ -101,6 +122,7 @@ const UserLoginForm = () => {
           {renderSubmitButton()}
         </Form>
       </Col>
+      {contextHolder}
     </Row>
   );
 };
