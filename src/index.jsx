@@ -2,6 +2,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+// HOC imported here //
+
+import IsUserLoggedIn from "HOC/IsUserLoggedIn";
+
 // Main view components  //
 
 import MainLayout from "layout/MainLayout";
@@ -66,7 +70,7 @@ const App = () => {
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <IsUserLoggedIn component={App} />
     </BrowserRouter>
   </React.StrictMode>
 );

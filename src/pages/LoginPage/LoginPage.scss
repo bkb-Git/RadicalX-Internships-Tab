@@ -1,0 +1,16 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.loginPage {
+    height: 100vh;
+
+    &__image {
+        height: 100%;
+        background-color: $color-primary;
+    }
+
+    &__userLogin {
+        @include mixins.flex(center, flex-start, row);
+        height: 100%;
+    }
+}
