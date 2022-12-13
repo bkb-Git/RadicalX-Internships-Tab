@@ -7,7 +7,7 @@ import { addDoc, collection } from "firebase/firestore";
 
 import { defaultValue } from "context/AddNewInternshipFormContext";
 
-import { ReactComponent as PlusIcon } from "../../../assets/add-square.svg";
+import { ReactComponent as PlusIcon } from "assets/add-square.svg";
 
 import "./Header.scss";
 

@@ -1,7 +1,7 @@
 import { Layout } from "antd";
 import SideMenu from "layout/MainLayout/SideMenu";
 import { Outlet } from "react-router-dom";
-import { ReactComponent as RadicalXLogo } from "../../assets/RadicallX-Black-Logo 1.svg";
+import { ReactComponent as RadicalXLogo } from "assets/RadicallX-Black-Logo 1.svg";
 
 import "./MainLayout.scss";
 import User from "./User";
