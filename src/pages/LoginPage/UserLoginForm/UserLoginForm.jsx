@@ -6,7 +6,7 @@ import { ReactComponent as RadicalXLogo } from "assets/RadicallX-Black-Logo 1.sv
 import { auth } from "firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 import "./UserLoginForm.scss";
 
@@ -26,6 +26,7 @@ const UserLoginForm = () => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password).then(
       () => {
+        redirect("/");
         setLoading(false);
       },
       (err) => {

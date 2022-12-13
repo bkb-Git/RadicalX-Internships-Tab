@@ -17,6 +17,7 @@ const GlobalContextProvider = ({ children }) => {
         setUserDetails(user);
         setLoading(false);
       } else {
+        setUserDetails(null);
         setLoading(false);
       }
     });
