@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 
 import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
+
+import { ReactComponent as Menu } from "assets/menu.svg";
+import { ReactComponent as ArrowRight } from "assets/arrow-right-field-icon.svg";
+import { ReactComponent as TickCircle } from "assets/tick-circle.svg";
+
 import AddField from "components/AddField";
 import SubMenuField from "./SubMenuField";
-
-import { ReactComponent as Menu } from "../../assets/menu.svg";
-import { ReactComponent as ArrowRight } from "../../assets/arrow-right-field-icon.svg";
-import { ReactComponent as TickCircle } from "../../assets/tick-circle.svg";
 
 import "./InternshipGuideField.scss";
 

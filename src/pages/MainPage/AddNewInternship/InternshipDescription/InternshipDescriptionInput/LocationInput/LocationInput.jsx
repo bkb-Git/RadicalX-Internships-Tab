@@ -5,7 +5,7 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 import InternshipFormItemCard from "components/InternshipFormItemCard";
 
-import { ReactComponent as LocationIcon } from "../../../../assets/location.svg";
+import { ReactComponent as LocationIcon } from "assets/location.svg";
 
 import "./LocationInput.scss";
 

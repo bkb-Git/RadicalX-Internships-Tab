@@ -1,12 +1,14 @@
+import { useContext } from "react";
+
 import { Col, Row, Space } from "antd";
 import { Outlet, useParams } from "react-router-dom";
+
+import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 import InternshipStandardField from "components/InternshipStandardField";
 import AddField from "components/AddField";
 
 import "./InternshipDescription.scss";
-import { useContext } from "react";
-import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
 const FIELDS = [
   { title: "Category", id: "category" },

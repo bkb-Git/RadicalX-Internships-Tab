@@ -1,0 +1,47 @@
+@use "/src/styles/mixins";
+
+.loginView {
+    height: 80%;
+
+    &__logo {
+        @include mixins.flex(center, center, row);
+    }
+}
+
+.loginForm {
+    &__title {
+        margin-bottom: 1rem;
+    }
+
+    &__email {
+        margin-bottom: 1.5rem;
+
+        div[class="ant-form-item-control-input-content"] > span {
+            border-radius: 16px;
+            padding: 10px 16px;
+        }
+    }
+
+    &__password {
+        margin-bottom: 1.5rem;
+
+        div[class="ant-form-item-control-input-content"] > span {
+            border-radius: 16px;
+            padding: 10px 16px;
+        }
+    }
+
+    &__rememberMeAndForgotPass {
+        margin-bottom: 1.5rem;
+    }
+
+    &__submit {
+        margin-bottom: 1.5rem;
+
+        button {
+            border-radius: 16px;
+            padding: 5px 0px;
+            box-sizing: content-box;
+        }
+    }
+}
