@@ -11,7 +11,7 @@ import "./SideMenu.scss";
 
 const ROUTE_KEY = {
   DASHBOARD: "1",
-  APPRENTERSHIPS: "2",
+  APPRENTICESHIPS: "2",
   INTERNSHIPS: "3",
   JOBS: "4",
   SETTINGS: "5",
@@ -41,8 +41,8 @@ const SideMenu = () => {
       case ROUTE_KEY.INTERNSHIPS:
         navigate("internships");
         break;
-      case ROUTE_KEY.APPRENTERSHIPS:
-        navigate("apprenterships");
+      case ROUTE_KEY.APPRENTICESHIPS:
+        navigate("apprenticeships");
         break;
       case ROUTE_KEY.JOBS:
         navigate("jobs");
@@ -57,9 +57,9 @@ const SideMenu = () => {
   const items = [
     getItem("Dashboard", ROUTE_KEY.DASHBOARD, <DashboardIcon selected={!currentLocation} />),
     getItem(
-      "Apprenterships",
-      ROUTE_KEY.APPRENTERSHIPS,
-      <MedalStarIcon selected={currentLocation === "APPRENTERSHIPS"} />
+      "Apprenticeships",
+      ROUTE_KEY.APPRENTICESHIPS,
+      <MedalStarIcon selected={currentLocation === "APPRENTICESHIPS"} />
     ),
     getItem("Internships", ROUTE_KEY.INTERNSHIPS, <BookIcon selected={currentLocation === "INTERNSHIPS"} />),
     getItem("Jobs", ROUTE_KEY.JOBS, <BriefcaseIcon selected={currentLocation === "JOBS"} />),
