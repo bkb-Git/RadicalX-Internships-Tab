@@ -1,5 +1,5 @@
 import { PoweroffOutlined } from "@ant-design/icons";
-import { Avatar, Row, Space, Typography, Col, Popover, Button } from "antd";
+import { Avatar, Row, Space, Typography, Col, Popover, Button, notification } from "antd";
 import { auth } from "firebase";
 import { signOut } from "firebase/auth";
 import { redirect } from "react-router-dom";
@@ -9,7 +9,10 @@ import "./User.scss";
 const { Text } = Typography;
 
 const User = () => {
-  // const navigate = useNavigate();
+  // Notification API //
+
+  const [api, contextHolder] = notification.useNotification();
+
   // Handle Sign Out //
 
   const handleSignOut = (e) => {
@@ -17,7 +20,11 @@ const User = () => {
 
     signOut(auth).then(
       () => redirect("/login"),
-      (err) => console.log(err.message)
+      (err) =>
+        api.error({
+          message: err.message,
+          placement: "top",
+        })
     );
   };
 
@@ -43,6 +50,7 @@ const User = () => {
           <Text className="user__name">Adam Scott</Text>
         </Space>
       </Col>
+      {contextHolder}
     </Row>
   );
 };
