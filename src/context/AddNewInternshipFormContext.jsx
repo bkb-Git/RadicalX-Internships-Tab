@@ -1,7 +1,7 @@
 import { notification } from "antd";
 
 import { collection, doc, getDocs } from "firebase/firestore";
-import db from "firebase";
+import { db } from "firebase";
 
 const { createContext, useState, useEffect } = require("react");
 

@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 
 import { Button, notification, Row, Typography } from "antd";
 
-import db from "firebase";
+import { db } from "firebase";
 import { addDoc, collection } from "firebase/firestore";
 
 import { defaultValue } from "context/AddNewInternshipFormContext";
 
-import { ReactComponent as PlusIcon } from "../../../assets/add-square.svg";
+import { ReactComponent as PlusIcon } from "assets/add-square.svg";
 
 import "./Header.scss";
 

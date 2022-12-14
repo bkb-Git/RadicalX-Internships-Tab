@@ -4,9 +4,9 @@ import { Card, Col, Divider, List, Row } from "antd";
 
 import Category from "components/Category";
 import InternshipPost from "components/InternshipPost";
-import InternshipPostSkeleton from "../../../components/InternshipPostSkeleton";
+import InternshipPostSkeleton from "components/InternshipPostSkeleton";
 
-import { ReactComponent as IconGroup } from "../../../assets/ButtonsGroup.svg";
+import { ReactComponent as IconGroup } from "assets/ButtonsGroup.svg";
 
 import "./InternshipsList.scss";
 

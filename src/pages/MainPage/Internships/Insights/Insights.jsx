@@ -3,7 +3,7 @@ import { Facet } from "@ant-design/charts";
 import { Button, Card, Col, Row, Space, Typography } from "antd";
 import { useEffect, useState, useRef } from "react";
 
-import { ReactComponent as Calendar } from "../../../assets/calendar-2.svg";
+import { ReactComponent as Calendar } from "assets/calendar-2.svg";
 
 import "./Insights.scss";
 
