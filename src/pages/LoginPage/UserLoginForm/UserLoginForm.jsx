@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Input, message, Row, Typography } from "antd";
+import { InfoCircleOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Col, Form, Input, message, Row, Tooltip, Typography } from "antd";
 
 import { ReactComponent as RadicalXLogo } from "assets/RadicallX-Black-Logo 1.svg";
 import { auth } from "firebase";
@@ -18,6 +18,15 @@ const UserLoginForm = () => {
   // Message API //
 
   const [messageApi, contextHolder] = message.useMessage();
+
+  const loginExampleInfo = () => {
+    return (
+      <Row justify="center" align="middle">
+        <Col span={22}>Username: user@user.com</Col>
+        <Col span={22}>Password: 123456</Col>
+      </Row>
+    );
+  };
 
   // Handler Functions //
 
@@ -45,6 +54,9 @@ const UserLoginForm = () => {
       <Form.Item className="loginForm__title">
         <Title level={4} style={{ marginBottom: 0 }}>
           Login
+          <Tooltip placement="top" title={loginExampleInfo}>
+            <InfoCircleOutlined style={{ marginLeft: "0.5rem" }} />
+          </Tooltip>
         </Title>
       </Form.Item>
     );
