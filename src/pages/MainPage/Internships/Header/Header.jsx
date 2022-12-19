@@ -1,17 +1,15 @@
 import { useNavigate } from "react-router-dom";
 
-import { Button, notification, Row, Typography } from "antd";
+import { notification } from "antd";
 
 import { db } from "firebase";
 import { addDoc, collection } from "firebase/firestore";
 
 import { defaultValue } from "context/AddNewInternshipFormContext";
 
-import { ReactComponent as PlusIcon } from "assets/add-square.svg";
+import MainContentHeader from "components/MainContentHeader";
 
 import "./Header.scss";
-
-const { Title } = Typography;
 
 const Header = () => {
   const navigate = useNavigate();
@@ -33,21 +31,12 @@ const Header = () => {
   };
 
   return (
-    <Row justify="space-between" align="middle" className="header">
-      <Title level={3} className="header__title">
-        Internships
-      </Title>
-      <Button
-        onClick={handleRoute}
-        icon={<PlusIcon style={{ marginRight: "8px" }} />}
-        size="large"
-        type="primary"
-        style={{ borderRadius: "12px", display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        Create New Internship
-      </Button>
-      {contextHolder}
-    </Row>
+    <MainContentHeader
+      title="Internships"
+      buttonTitle="Create New Internships"
+      contextHolder={contextHolder}
+      routeHandler={handleRoute}
+    />
   );
 };
 

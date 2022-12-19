@@ -1,0 +1,20 @@
+@use "/src/styles/mixins";
+
+.mainContentHeader {
+    height: 100px;
+
+    &__title {
+        margin-bottom: 0 !important;
+    }
+
+    &__button {
+        border-radius: 12px;
+        @include mixins.flex(center, center, row);
+    }
+}
+
+@include mixins.respond(desk-small) {
+    .mainContentHeader {
+        height: 60px;
+    }
+}
