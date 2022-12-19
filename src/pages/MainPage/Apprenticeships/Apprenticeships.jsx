@@ -22,20 +22,6 @@ const POSTS = [
     tags: ["Product Manager", "Product Designer", "Backend Developer", "Frontend Developer"],
     id: 2,
   },
-  {
-    title: "Web App Development",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magaliqua.",
-    tags: ["Product Manager", "Product Designer", "Backend Developer", "Frontend Developer"],
-    id: 3,
-  },
-  {
-    title: "Web App Development",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magaliqua.",
-    tags: ["Product Manager", "Product Designer", "Backend Developer", "Frontend Developer"],
-    id: 4,
-  },
 ];
 
 const Apprenticeships = () => {
@@ -47,7 +33,7 @@ const Apprenticeships = () => {
         <MainContentHeader title="Apprenticeships" buttonTitle="Create New Apprenticeship" routeHandler={handleRoute} />
       </Col>
       <Col {...responsiveWidths} className="apprenticeships__content">
-        <Row gutter={[20, 0]} style={{ height: "100%" }}>
+        <Row gutter={[20, 0]} style={{ height: "100%" }} justify="start" align="top">
           {POSTS.map((post) => (
             <ApprenticeshipPost data={post} key={post.id} />
           ))}
