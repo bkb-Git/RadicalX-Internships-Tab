@@ -1,7 +1,13 @@
-import { Col, Row } from "antd";
+import { Col, notification, Row } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import ApprenticeshipPost from "components/ApprenticeshipPost";
 import MainContentHeader from "components/MainContentHeader";
+
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "firebase";
+
+import { defaultValue } from "context/AddNewApprenticeshipFormContext";
 
 import "./Apprenticeships.scss";
 
@@ -25,12 +31,33 @@ const POSTS = [
 ];
 
 const Apprenticeships = () => {
-  const handleRoute = () => {};
+  const navigate = useNavigate();
+
+  // Notification API //
+
+  const [api, contextHolder] = notification.useNotification();
+
+  // In this handle a new document is created and its reference stored in localStorage //
+
+  const handleRoute = () => {
+    const apprenticeshipCol = collection(db, "apprenticeships");
+    addDoc(apprenticeshipCol, defaultValue)
+      .then((value) => {
+        localStorage.setItem("docId", value.id);
+      })
+      .then(() => navigate("add"))
+      .catch((err) => api.error({ message: err.message, placement: "bottomLeft" }));
+  };
 
   return (
     <Row className="apprenticeships">
       <Col {...responsiveWidths} className="apprenticeships__header">
-        <MainContentHeader title="Apprenticeships" buttonTitle="Create New Apprenticeship" routeHandler={handleRoute} />
+        <MainContentHeader
+          title="Apprenticeships"
+          buttonTitle="Create New Apprenticeship"
+          contextHolder={contextHolder}
+          routeHandler={handleRoute}
+        />
       </Col>
       <Col {...responsiveWidths} className="apprenticeships__content">
         <Row gutter={[20, 0]} style={{ height: "100%" }} justify="start" align="top">
