@@ -68,8 +68,7 @@ const FormHeader = (props) => {
   const handleGoBack = () => {
     const isFirstStep = currentStep === 0;
 
-    if (isFirstStep) return navigate(parentRoute, { replace: true });
-    return formContext.setStep(currentStep - 1);
+    return isFirstStep ? navigate(parentRoute, { replace: true }) : formContext.setStep(currentStep - 1);
   };
 
   // Render functions for views defined here //
@@ -98,8 +97,6 @@ const FormHeader = (props) => {
       const copySteps = Object.keys(steps);
       const lastStep = steps[copySteps[copySteps.length - 1]];
 
-      console.log(lastStep);
-
       if (currentStep === lastStep) return finalText;
       if (submitting) return "";
       return "Continue to Next Step";
@@ -121,6 +118,8 @@ const FormHeader = (props) => {
       </Row>
     );
   };
+
+  console.log(formContext);
 
   return (
     <Row gutter={[0, 20]} className="formHeader">

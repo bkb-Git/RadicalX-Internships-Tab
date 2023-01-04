@@ -1,14 +1,20 @@
 import { Card, Checkbox, Col, Row, Typography, Form } from "antd";
+import { AddNewApprenticeshipFormContext } from "context/AddNewApprenticeshipFormContext";
+import { useContext } from "react";
 
 import "./TeamTypeCard.scss";
 
 const { Title } = Typography;
 
 const TeamTypeCard = (props) => {
+  const formContext = useContext(AddNewApprenticeshipFormContext);
+  const { setFormContext, loading, ...otherValues } = formContext;
+
   const { data, setTeamTypeChecked, checked } = props;
   const { type, icon: Icon } = data;
 
   const handleClick = () => {
+    setFormContext({ ...otherValues, teamType: type });
     setTeamTypeChecked(type);
   };
 
@@ -18,6 +24,7 @@ const TeamTypeCard = (props) => {
         hoverable
         bodyStyle={{ padding: 0 }}
         bordered
+        loading={loading}
         className={`teamTypeCard ${checked && "teamTypeCard--checked"} `}
       >
         <Row justify="center" align="middle" gutter={[0, 10]}>

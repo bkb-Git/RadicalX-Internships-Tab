@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import { Col, Input, Row } from "antd";
+
+import { AddNewApprenticeshipFormContext } from "context/AddNewApprenticeshipFormContext";
 
 import ApprenticeshipFormItemCard from "components/ApprenticeshipFormItemCard";
 
@@ -7,6 +10,17 @@ import UploadProfileImg from "components/UploadProfileImg";
 import "./ApprenticeshipTitleInput.scss";
 
 const ApprenticeshipTitleInput = () => {
+  const formContext = useContext(AddNewApprenticeshipFormContext);
+  const { setFormContext, loading, title, ...otherValues } = formContext;
+
+  const handleChange = (e) => {
+    const {
+      target: { value },
+    } = e;
+
+    setFormContext({ title: value, ...otherValues });
+  };
+
   return (
     <ApprenticeshipFormItemCard
       title="Company Logo & Apprenticeship Title"
@@ -18,7 +32,11 @@ const ApprenticeshipTitleInput = () => {
           <UploadProfileImg />
         </Col>
         <Col span={22}>
-          <Input placeholder="Enter  Apprenticeship Title" className="apprenticeshipTitle__input" />
+          <Input
+            placeholder="Enter  Apprenticeship Title"
+            className="apprenticeshipTitle__input"
+            onChange={handleChange}
+          />
         </Col>
       </Row>
     </ApprenticeshipFormItemCard>

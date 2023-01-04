@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Row, Typography } from "antd";
+import { Button, Card, Col, Form, Modal, Row, Typography } from "antd";
 
 import { ReactComponent as InfoCircleSvg } from "assets/info-circle.svg";
 import { ReactComponent as AddCircle } from "assets/add-circle.svg";
@@ -8,7 +8,25 @@ import "./ApprenticeshipFormItemCard.scss";
 const { Title } = Typography;
 
 const ApprenticeshipFormItemCard = (props) => {
-  const { formName, title, className, addButton, children } = props;
+  const { formName, title, className, addButton, modal, children } = props;
+
+  const renderModal = () => {
+    const { view: FormComponent, open, setOpen } = modal;
+    return (
+      <Modal
+        footer={null}
+        closable={false}
+        centered
+        open={open}
+        onOk={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+        width={800}
+        className="apprenticeshipFormItemCard__modalForm"
+      >
+        <FormComponent />
+      </Modal>
+    );
+  };
 
   const renderCardTitle = () => {
     return (
@@ -23,7 +41,13 @@ const ApprenticeshipFormItemCard = (props) => {
               </Col>
               {addButton && (
                 <Col>
-                  <Button icon={<AddCircle />} type="ghost" id={title} className="apprenticeshipFormItemCard__button">
+                  <Button
+                    onClick={() => addButton()}
+                    icon={<AddCircle />}
+                    type="ghost"
+                    id={title}
+                    className="apprenticeshipFormItemCard__button"
+                  >
                     Add Team Member
                   </Button>
                 </Col>
@@ -52,9 +76,10 @@ const ApprenticeshipFormItemCard = (props) => {
       ) : (
         <Row justify="center" align="middle" gutter={[0, 16]}>
           {renderCardTitle()}
-          <Col span={24}>{children}</Col>
+          {children && <Col span={24}>{children}</Col>}
         </Row>
       )}
+      {modal && renderModal()}
     </Card>
   );
 };

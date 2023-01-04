@@ -10,9 +10,9 @@ export const defaultValue = {
   company_description: "",
   apprenticeship_description: "",
   intro_video: "",
-  team_type: "",
-  team_roles: [],
-  team_admin: [],
+  teamType: "",
+  teamRoles: [],
+  teamAdmin: [],
   timeline: {
     start_date: "",
     end_date: "",
@@ -27,7 +27,7 @@ const AddNewApprenticeshipFormProvider = (props) => {
 
   const { children, otherValues } = props;
 
-  const { step } = otherValues;
+  // const { step } = otherValues;
 
   // FormContext state defined here //
 
@@ -67,7 +67,7 @@ const AddNewApprenticeshipFormProvider = (props) => {
 
   useEffect(() => {
     getApprenticeships(db);
-  }, [step]);
+  }, []);
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values

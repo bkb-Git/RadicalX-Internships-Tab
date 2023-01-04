@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Row } from "antd";
+
+import { AddNewApprenticeshipFormContext } from "context/AddNewApprenticeshipFormContext";
 
 import ApprenticeshipFormItemCard from "components/ApprenticeshipFormItemCard";
 import TeamTypeCard from "components/TeamTypeCard";
@@ -25,7 +27,11 @@ const TEAM_TYPES = [
 ];
 
 const ApprenticeshipTeamType = () => {
-  const [teamTypeChecked, setTeamTypeChecked] = useState(null);
+  const formContext = useContext(AddNewApprenticeshipFormContext);
+
+  const { teamType } = formContext;
+
+  const [teamTypeChecked, setTeamTypeChecked] = useState(teamType);
 
   return (
     <ApprenticeshipFormItemCard title="Team Type" className="teamType">

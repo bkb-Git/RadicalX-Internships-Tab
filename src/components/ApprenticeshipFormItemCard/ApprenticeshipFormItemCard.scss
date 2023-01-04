@@ -15,4 +15,10 @@
         border-style: dashed;
         color: $color-primary;
     }
+
+    &__modalForm {
+        .ant-modal-content {
+            border-radius: 20px;
+        }
+    }
 }
