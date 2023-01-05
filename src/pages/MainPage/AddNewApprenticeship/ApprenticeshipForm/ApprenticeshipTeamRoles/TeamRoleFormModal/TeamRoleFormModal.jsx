@@ -73,12 +73,10 @@ const LOCATION_OPTIONS = [
   },
 ];
 
-const TeamRoleFormModal = () => {
-  const [form] = Form.useForm();
+const TeamRoleFormModal = (props) => {
+  const { handleFinish, handleClose } = props;
 
-  const handleOnFinish = (values) => {
-    console.log(values);
-  };
+  const [form] = Form.useForm();
 
   const renderTitle = () => {
     return (
@@ -92,14 +90,11 @@ const TeamRoleFormModal = () => {
           <Col>
             <Row justify="center" align="middle" gutter={[12, 0]}>
               <Col>
-                <Button size="middle" type="primary" className="teamRoleForm__header__saveButton">
+                <Button htmlType="submit" size="middle" type="primary" className="teamRoleForm__header__saveButton">
                   Save
                 </Button>
               </Col>
-              <Col
-                style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-                className="teamRoleForm__header__closeButton"
-              >
+              <Col onClick={handleClose} className="teamRoleForm__header__closeButton">
                 <CloseSvg />
               </Col>
             </Row>
@@ -195,7 +190,7 @@ const TeamRoleFormModal = () => {
 
   return (
     <Row justify="center" align="midle">
-      <Form layout="vertical" name="teamRole" form={form} onFinish={handleOnFinish} className="teamRoleForm">
+      <Form layout="vertical" name="teamRole" form={form} onFinish={handleFinish} className="teamRoleForm">
         {renderTitle()}
         {renderRoleSelector()}
         {renderDescription()}

@@ -11,19 +11,17 @@ const ApprenticeshipFormItemCard = (props) => {
   const { formName, title, className, addButton, modal, children } = props;
 
   const renderModal = () => {
-    const { view: FormComponent, open, setOpen } = modal;
+    const { view: FormComponent, open, setOpen, handleFinish } = modal;
     return (
       <Modal
         footer={null}
         closable={false}
         centered
         open={open}
-        onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
         width={800}
         className="apprenticeshipFormItemCard__modalForm"
       >
-        <FormComponent />
+        <FormComponent handleFinish={handleFinish} handleClose={() => setOpen(false)} />
       </Modal>
     );
   };
