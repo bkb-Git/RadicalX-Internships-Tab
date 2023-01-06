@@ -10,7 +10,7 @@ const { Title, Paragraph } = Typography;
 
 const ApprenticeshipPost = (props) => {
   const { data } = props;
-  const { title, description, tags } = data;
+  const { title, company_description: companyDescription, teamRoles, id } = data;
 
   // Render functions for views //
 
@@ -44,7 +44,7 @@ const ApprenticeshipPost = (props) => {
   const renderDescription = () => {
     return (
       <Col span={24}>
-        <Paragraph style={{ marginBottom: 0 }}>{description}</Paragraph>
+        <Paragraph style={{ marginBottom: 0 }}>{companyDescription}</Paragraph>
       </Col>
     );
   };
@@ -53,9 +53,9 @@ const ApprenticeshipPost = (props) => {
     return (
       <Col span={24}>
         <Row align="middle" justify="start" gutter={[8, 8]}>
-          {tags.map((tag) => (
-            <Col key={tag}>
-              <Tag className="apprenticeshipPost__card__tag">{tag}</Tag>
+          {teamRoles.map((tag) => (
+            <Col key={`POST-${id}-${tag.role}`}>
+              <Tag className="apprenticeshipPost__card__tag">{tag.role}</Tag>
             </Col>
           ))}
         </Row>

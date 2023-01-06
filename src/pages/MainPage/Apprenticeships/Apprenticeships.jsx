@@ -1,41 +1,57 @@
+import { useState, useEffect } from "react";
+
 import { Col, notification, Row } from "antd";
 import { useNavigate } from "react-router-dom";
 
 import ApprenticeshipPost from "components/ApprenticeshipPost";
 import MainContentHeader from "components/MainContentHeader";
 
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "firebase";
 
 import { defaultValue } from "context/AddNewApprenticeshipFormContext";
 
 import "./Apprenticeships.scss";
+import LoadingScreen from "components/LoadingScreen";
 
 const responsiveWidths = { lg: 24, xl: 24, xxl: 24 };
 
-const POSTS = [
-  {
-    title: "Mobile App Design",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magaliqua.",
-    tags: ["Product Manager", "Product Designer", "Backend Developer", "Frontend Developer"],
-    id: 1,
-  },
-  {
-    title: "Web App Development",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magaliqua.",
-    tags: ["Product Manager", "Product Designer", "Backend Developer", "Frontend Developer"],
-    id: 2,
-  },
-];
-
 const Apprenticeships = () => {
+  const [apprenticeshipsList, setApprenticeshipsList] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [loading, setLoading] = useState(true);
+
   const navigate = useNavigate();
 
   // Notification API //
 
   const [api, contextHolder] = notification.useNotification();
+
+  // Async function to get apprenticeships //
+
+  const getApprenticeships = async () => {
+    const apprenticeshipsCol = collection(db, "apprenticeships");
+
+    await getDocs(apprenticeshipsCol)
+      .then((data) => {
+        const currentDoc = data.docs.map((item) => item.data());
+
+        setApprenticeshipsList(currentDoc);
+        setLoading(false);
+      })
+      .catch((error) =>
+        api.error({
+          message: error.message,
+          placement: "bottomLeft",
+        })
+      );
+  };
+
+  // useEffect called to retrieve apprenticeship List //
+
+  useEffect(() => {
+    getApprenticeships();
+  }, []);
 
   // In this handle a new document is created and its reference stored in localStorage //
 
@@ -60,11 +76,15 @@ const Apprenticeships = () => {
         />
       </Col>
       <Col {...responsiveWidths} className="apprenticeships__content">
-        <Row gutter={[20, 0]} style={{ height: "100%" }} justify="start" align="top">
-          {POSTS.map((post) => (
-            <ApprenticeshipPost data={post} key={post.id} />
-          ))}
-        </Row>
+        {loading ? (
+          <LoadingScreen />
+        ) : (
+          <Row gutter={[20, 0]} style={{ height: "100%" }} justify="start" align="top">
+            {apprenticeshipsList.map((post) => (
+              <ApprenticeshipPost data={post} key={post.id} />
+            ))}
+          </Row>
+        )}
       </Col>
     </Row>
   );

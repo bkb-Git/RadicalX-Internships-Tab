@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Button, Layout, Modal, Result, Steps } from "antd";
 
@@ -31,17 +31,56 @@ const { Step } = Steps;
 
 const ApprenticeshipFormLayout = (props) => {
   const { isModalOpen, setIsModalOpen, contextHolder } = props;
+
   const formContext = useContext(AddNewApprenticeshipFormContext);
+  const { step: currentStep, setStep } = formContext;
 
-  const { step: currentStep } = formContext;
-
-  // Navigate hook defined here //
-
-  const navigate = useNavigate();
+  const [formIsFilled, setFormIsFilled] = useState(false);
 
   // function to test form completion //
 
   const isFormSubmitted = () => {};
+
+  const checkFormState = () => {
+    const {
+      title,
+      company_description: companyDescription,
+      apprenticeship_description: apprenticeshipDescription,
+      intro_video: introducionVideo,
+      teamType,
+      teamRoles,
+      teamAdmin,
+      timeline: { start_date: startDate, end_date: endDate },
+    } = formContext;
+
+    const isStepOneDone = title && companyDescription && apprenticeshipDescription && introducionVideo;
+
+    // Validation Checks to move form forward
+
+    if (currentStep === 0 && isStepOneDone) return setStep(currentStep + 1);
+    if (currentStep === 1 && teamType) return setStep(currentStep + 1);
+    if (currentStep === 2 && teamRoles.length > 0) return setStep(currentStep + 1);
+    if (currentStep === 3 && teamAdmin.length > 0) return setStep(currentStep + 1);
+    if (currentStep === 4 && startDate && endDate) return setFormIsFilled(true);
+
+    // Validation Checks to move form backwards
+
+    if (!isStepOneDone && currentStep > 0) return setStep(0);
+    if (!teamType && currentStep > 1) return setStep(1);
+    if (teamRoles.length === 0 && currentStep > 2) return setStep(2);
+    if (teamAdmin.length === 0 && currentStep > 3) return setStep(3);
+    if ((!startDate || !endDate) && formIsFilled) return setFormIsFilled(false);
+
+    return null;
+  };
+
+  useEffect(() => {
+    checkFormState();
+  }, [formContext]);
+
+  // Navigate hook defined here //
+
+  const navigate = useNavigate();
 
   // STEPS //
 
@@ -52,7 +91,7 @@ const ApprenticeshipFormLayout = (props) => {
         <Step title="Team Type" icon={<StepsIcon done={currentStep > 1} />} />
         <Step title="Team Roles" icon={<StepsIcon done={currentStep > 2} />} />
         <Step title="Team Admin" icon={<StepsIcon done={currentStep > 3} />} />
-        <Step title="Timeline" icon={<StepsIcon done={currentStep === 4 && isFormSubmitted()} />} />
+        <Step title="Timeline" icon={<StepsIcon done={currentStep === 4 && formIsFilled} />} />
       </Steps>
     );
   };
@@ -93,6 +132,7 @@ const ApprenticeshipFormLayout = (props) => {
         isFormSubmitted={isFormSubmitted}
         finalText="Publish Apprenticeship"
         parentRoute="/apprenticeships"
+        formIsFilled={formIsFilled}
         subForms={FORMS}
         steps={STEP}
         renderSteps={steps}

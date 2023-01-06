@@ -1,0 +1,28 @@
+@use "/src/styles/mixins";
+
+.teamAdminForm {
+    width: 100%;
+
+    &__header {
+        &__saveButton {
+            border-radius: 8px;
+        }
+
+        &__closeButton {
+            @include mixins.flex(center, center, row);
+            opacity: 0.7;
+            transition: all 0.5 linear;
+
+            &:hover {
+                opacity: 1;
+                transform: scale(1.1);
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__input {
+        border-radius: 20px !important;
+        padding: 12px 16px !important;
+    }
+}

@@ -12,7 +12,7 @@ import "./FormHeader.scss";
 const { Title } = Typography;
 
 const FormHeader = (props) => {
-  const { title, context, isFormSubmitted, finalText, parentRoute, subForms, steps, renderSteps } = props;
+  const { title, context, isFormSubmitted, formIsFilled, finalText, parentRoute, subForms, steps, renderSteps } = props;
   const [submitting, setSubmitting] = useState(false);
 
   // React-router-dom hook //
@@ -20,7 +20,7 @@ const FormHeader = (props) => {
 
   // Form Context is used here //
   const formContext = useContext(context);
-  const { step: currentStep, handleFormFinish } = formContext;
+  const { step: currentStep, handleFormFinish, docRef } = formContext;
 
   useEffect(() => {}, [submitting]);
 
@@ -31,15 +31,61 @@ const FormHeader = (props) => {
   // Handler functions defined here //
 
   const handleNext = () => {
+    if (formIsFilled) {
+      const {
+        title: payloadTitle,
+        company_description: companyDescription,
+        apprenticeship_description: apprenticeshipDescription,
+        intro_video: IntroductionVideo,
+        teamType,
+        teamRoles,
+        teamAdmin,
+        timeline,
+        id,
+        formFinished,
+      } = formContext;
+
+      const formPayload = {
+        title: payloadTitle,
+        company_description: companyDescription,
+        apprenticeship_description: apprenticeshipDescription,
+        intro_video: IntroductionVideo,
+        teamType,
+        teamRoles,
+        teamAdmin,
+        timeline,
+        id,
+        formFinished,
+      };
+
+      return updateDoc(docRef, formPayload)
+        .then(
+          () => {
+            handleFormFinish(docRef, setSubmitting);
+          },
+          () =>
+            api.error({
+              message: "Failed to Submit Apprenticeship",
+              placement: "bottomLeft",
+            })
+        )
+        .catch((err) =>
+          api.error({
+            message: "Failed to Submit Document",
+            description: err.message,
+            placement: "bottomLeft",
+          })
+        );
+    }
+
     const copySteps = Object.keys(steps);
     const lastStep = steps[copySteps[copySteps.length - 1]];
 
     const isFinalStep = currentStep === lastStep;
-    const { docRef } = formContext;
 
     if (isFinalStep) setSubmitting(true);
 
-    updateDoc(docRef, subForms[currentStep], { ...formContext[subForms[currentStep]] })
+    return updateDoc(docRef, subForms[currentStep], { ...formContext[subForms[currentStep]] })
       .then(
         () => {
           api.success({
@@ -95,7 +141,7 @@ const FormHeader = (props) => {
   const renderActionButton = () => {
     const buttonText = () => {
       const copySteps = Object.keys(steps);
-      const lastStep = steps[copySteps[copySteps.length - 1]];
+      const lastStep = steps[copySteps[copySteps.length - 1]] || title === "Creating Apprenticeships";
 
       if (currentStep === lastStep) return finalText;
       if (submitting) return "";
@@ -105,11 +151,13 @@ const FormHeader = (props) => {
     return (
       <Row justify="end" align="middle">
         <Button
-          disabled={!isFormSubmitted()}
+          disabled={formIsFilled ? !formIsFilled : !isFormSubmitted()}
           loading={submitting}
           type="primary"
           size="large"
-          className={`formHeader__main__nextButton ${isFormSubmitted() && "formHeader__main__nextButton--active"}`}
+          className={`formHeader__main__nextButton ${
+            (isFormSubmitted() || formIsFilled) && "formHeader__main__nextButton--active"
+          }`}
           onClick={handleNext}
         >
           {buttonText()}
@@ -118,8 +166,6 @@ const FormHeader = (props) => {
       </Row>
     );
   };
-
-  console.log(formContext);
 
   return (
     <Row gutter={[0, 20]} className="formHeader">

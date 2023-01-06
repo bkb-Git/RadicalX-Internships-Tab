@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Row } from "antd";
 
 import ApprenticeshipFormItemCard from "components/ApprenticeshipFormItemCard";
+
+import { AddNewApprenticeshipFormContext } from "context/AddNewApprenticeshipFormContext";
 
 import TeamRoleCard from "components/TeamRoleCard";
 import TeamRoleFormModal from "./TeamRoleFormModal";
@@ -9,24 +11,31 @@ import TeamRoleFormModal from "./TeamRoleFormModal";
 import "./ApprenticeshipTeamRoles.scss";
 
 const ApprenticeshipTeamRoles = () => {
+  const formContext = useContext(AddNewApprenticeshipFormContext);
+  const { teamRoles, setFormContext, ...otherValues } = formContext;
+
   const [open, setOpen] = useState(false);
-  const [roles, setRoles] = useState(null);
+  const [roles, setRoles] = useState(teamRoles);
 
   const handleOpen = () => setOpen(true);
 
   const handleFinish = (values) => {
-    const rolesIsEmpty = !roles || roles === [];
+    const rolesIsEmpty = roles.length === 0;
 
-    if (rolesIsEmpty) return setRoles([{ id: 0, ...values }]);
+    if (rolesIsEmpty) {
+      setRoles([{ id: 0, ...values }]);
+      return setFormContext({ ...otherValues, teamRoles: [{ id: 0, ...values }] });
+    }
 
     const lastRoleId = roles[roles.length - 1].id;
 
     setRoles([...roles, { id: lastRoleId + 1, ...values }]);
+    setFormContext({ ...otherValues, teamRoles: [...roles, { id: lastRoleId + 1, ...values }] });
 
     return setOpen(false);
   };
 
-  const rolesExist = roles && roles !== [];
+  const rolesExist = roles.length > 0;
 
   return (
     <ApprenticeshipFormItemCard

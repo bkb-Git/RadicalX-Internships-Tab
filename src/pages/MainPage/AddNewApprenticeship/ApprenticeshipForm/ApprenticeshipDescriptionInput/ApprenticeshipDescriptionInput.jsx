@@ -18,7 +18,7 @@ const ApprenticeshipDescriptionInput = () => {
       target: { value },
     } = e;
 
-    setFormContext({ apprenticeship_description: value, ...otherValues });
+    setFormContext({ ...otherValues, apprenticeship_description: value });
   };
 
   return (

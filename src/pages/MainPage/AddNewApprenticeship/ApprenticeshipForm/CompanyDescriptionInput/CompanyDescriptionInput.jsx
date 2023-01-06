@@ -17,7 +17,8 @@ const CompanyDescriptionInput = () => {
     const {
       target: { value },
     } = e;
-    setFormContext({ company_description: value, ...otherValues });
+
+    setFormContext({ ...otherValues, company_description: value });
   };
 
   return (

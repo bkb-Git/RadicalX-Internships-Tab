@@ -12,7 +12,7 @@ export const defaultValue = {
   intro_video: "",
   teamType: "",
   teamRoles: [],
-  teamAdmin: [],
+  teamAdmin: [{ id: 0, name: "John McKinsey" }],
   timeline: {
     start_date: "",
     end_date: "",
@@ -40,7 +40,7 @@ const AddNewApprenticeshipFormProvider = (props) => {
 
   // Async function to retieve recently created internship (document) from firestore //
 
-  const getApprenticeships = async (firestoreDatabase) => {
+  const getCreatedApprenticeshipDoc = async (firestoreDatabase) => {
     const apprenticeshipsCol = collection(firestoreDatabase, "apprenticeships");
     const docId = localStorage.getItem("docId");
 
@@ -54,7 +54,7 @@ const AddNewApprenticeshipFormProvider = (props) => {
         return currentDoc ? currentDoc[0].data() : data.docs[0];
       })
       .then((list) => {
-        setFormContext({ ...formContext, ...list, docRef: documentRef });
+        setFormContext({ ...formContext, ...list, docRef: documentRef, id: docId });
         setLoading(false);
       })
       .catch((error) =>
@@ -66,7 +66,7 @@ const AddNewApprenticeshipFormProvider = (props) => {
   };
 
   useEffect(() => {
-    getApprenticeships(db);
+    getCreatedApprenticeshipDoc(db);
   }, []);
 
   return (

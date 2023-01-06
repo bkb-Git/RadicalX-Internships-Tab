@@ -36,8 +36,6 @@ const IntroVideoInput = () => {
     },
   };
 
-  // console.log(formContext);
-
   return (
     <ApprenticeshipFormItemCard
       title="Introduce yourself, your company, and what you're building."
