@@ -1,7 +1,10 @@
-import { Button, Col, Form, Row, Select, Typography, Input } from "antd";
+import { useState } from "react";
+import { Button, Col, Form, Row, Select, Typography, Input, Tag } from "antd";
 
 import { ReactComponent as CloseSvg } from "assets/close.svg";
 import { ReactComponent as ArrowDownSvg } from "assets/arrow-down.svg";
+
+import { ReactComponent as ClockSvg } from "assets/clock.svg";
 
 import "./TeamRoleFormModal.scss";
 
@@ -76,7 +79,27 @@ const LOCATION_OPTIONS = [
 const TeamRoleFormModal = (props) => {
   const { handleFinish, handleClose } = props;
 
+  const [skills, setSkills] = useState({ required: null, complemetary: null });
+
   const [form] = Form.useForm();
+
+  // Handle Selectors for the skills field
+
+  const handleSelectRequiredSkill = (value) => {
+    const { required } = skills;
+
+    if (required) return setSkills({ ...skills, required: [...required, value] });
+    return setSkills({ ...skills, required: [value] });
+  };
+
+  const handleSelectComplementarySkill = (value) => {
+    const { complemetary } = skills;
+
+    if (complemetary) return setSkills({ ...skills, complemetary: [...complemetary, value] });
+    return setSkills({ ...skills, complemetary: [value] });
+  };
+
+  // Render functions for the form views
 
   const renderTitle = () => {
     return (
@@ -107,10 +130,19 @@ const TeamRoleFormModal = (props) => {
   const renderRoleSelector = () => {
     return (
       <Col span={24} style={{ marginBottom: "20px" }}>
-        <Form.Item name="role" style={{ marginBottom: 0 }}>
+        <Form.Item
+          name="role"
+          className="teamRoleForm__formItem"
+          rules={[
+            {
+              required: true,
+              message: "Please select a role!",
+            },
+          ]}
+        >
           <Select
             placeholder="Select Role"
-            className="teamRoleForm__select"
+            className="teamRoleForm__formItem__select teamRoleForm__formItem__select--role"
             suffixIcon={<ArrowDownSvg />}
             dropdownStyle={{ borderRadius: "20px", padding: "8px" }}
             options={ROLE_OPTIONS}
@@ -123,7 +155,17 @@ const TeamRoleFormModal = (props) => {
   const renderDescription = () => {
     return (
       <Col span={24} style={{ marginBottom: "20px" }}>
-        <Form.Item label="Role Description" name="description" style={{ marginBottom: 0 }}>
+        <Form.Item
+          label="Role Description"
+          name="description"
+          style={{ marginBottom: 0 }}
+          rules={[
+            {
+              required: true,
+              message: "Please input a description!",
+            },
+          ]}
+        >
           <TextArea placeholder="Description..." className="teamRoleForm__description" rows={1} autoSize />
         </Form.Item>
       </Col>
@@ -133,15 +175,28 @@ const TeamRoleFormModal = (props) => {
   const renderRequiredSkills = () => {
     return (
       <Col span={24} style={{ marginBottom: "20px" }}>
-        <Form.Item label="Required Skills (Select any 3)" name="requiredSkills" style={{ marginBottom: 0 }}>
-          <Select
-            placeholder="Select Skills"
-            className="teamRoleForm__select"
-            suffixIcon={<ArrowDownSvg />}
-            dropdownStyle={{ borderRadius: "20px", padding: "8px" }}
-            options={SKILLS_OPTIONS}
-          />
-        </Form.Item>
+        <Row gutter={[0, 10]}>
+          <Col span={24}>
+            <Form.Item label="Required Skills (Select any 3)" name="requiredSkills" className="teamRoleForm__formItem">
+              <Select
+                placeholder="Select Skills"
+                className="teamRoleForm__formItem__select teamRoleForm__formItem__select--requiredSkills"
+                suffixIcon={<ArrowDownSvg />}
+                dropdownStyle={{ borderRadius: "20px", padding: "8px" }}
+                onSelect={handleSelectRequiredSkill}
+                options={SKILLS_OPTIONS}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            {skills.required &&
+              skills.required.map((skill) => (
+                <Tag className="teamRoleForm__formItem__tag" closable key={`${skill}-${Math.random(10)}`}>
+                  {skill}
+                </Tag>
+              ))}
+          </Col>
+        </Row>
       </Col>
     );
   };
@@ -149,15 +204,32 @@ const TeamRoleFormModal = (props) => {
   const renderComplementarySkills = () => {
     return (
       <Col span={24} style={{ marginBottom: "20px" }}>
-        <Form.Item label="Complementary Skills (Select any 3)" name="complementarySkills" style={{ marginBottom: 0 }}>
-          <Select
-            placeholder="Select Skills"
-            className="teamRoleForm__select"
-            suffixIcon={<ArrowDownSvg />}
-            dropdownStyle={{ borderRadius: "20px", padding: "8px" }}
-            options={SKILLS_OPTIONS}
-          />
-        </Form.Item>
+        <Row gutter={[0, 10]}>
+          <Col span={24}>
+            <Form.Item
+              label="Complementary Skills (Select any 3)"
+              name="complementarySkills"
+              className="teamRoleForm__formItem"
+            >
+              <Select
+                placeholder="Select Skills"
+                className="teamRoleForm__formItem__select teamRoleForm__formItem__select--complementarySkills"
+                suffixIcon={<ArrowDownSvg />}
+                onSelect={handleSelectComplementarySkill}
+                dropdownStyle={{ borderRadius: "20px", padding: "8px" }}
+                options={SKILLS_OPTIONS}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={24}>
+            {skills.complemetary &&
+              skills.complemetary.map((skill) => (
+                <Tag className="teamRoleForm__formItem__tag" closable key={`${skill}-${Math.random(10)}`}>
+                  {skill}
+                </Tag>
+              ))}
+          </Col>
+        </Row>
       </Col>
     );
   };
@@ -166,7 +238,11 @@ const TeamRoleFormModal = (props) => {
     return (
       <Col span={24} style={{ marginBottom: "20px" }}>
         <Form.Item label="Minimum Hours Per Week" name="workHours" style={{ marginBottom: 0 }}>
-          <Input placeholder="No. of hours" className="teamRoleForm__timeInput" />
+          <Input
+            prefix={<ClockSvg width={24} height={24} style={{ marginRight: "1rem" }} />}
+            placeholder="No. of hours"
+            className="teamRoleForm__timeInput"
+          />
         </Form.Item>
       </Col>
     );
@@ -175,10 +251,10 @@ const TeamRoleFormModal = (props) => {
   const renderLocationPreferences = () => {
     return (
       <Col span={24} style={{ marginBottom: "20px" }}>
-        <Form.Item label="Location Preferences" name="locationPreference" style={{ marginBottom: 0 }}>
+        <Form.Item label="Location Preferences" name="locationPreference" className="teamRoleForm__formItem">
           <Select
             placeholder="Select location"
-            className="teamRoleForm__select"
+            className="teamRoleForm__formItem__select teamRoleForm__formItem__select--location"
             suffixIcon={<ArrowDownSvg />}
             dropdownStyle={{ borderRadius: "20px", padding: "8px" }}
             options={LOCATION_OPTIONS}
@@ -190,7 +266,14 @@ const TeamRoleFormModal = (props) => {
 
   return (
     <Row justify="center" align="midle">
-      <Form layout="vertical" name="teamRole" form={form} onFinish={handleFinish} className="teamRoleForm">
+      <Form
+        layout="vertical"
+        name="teamRole"
+        form={form}
+        onFinish={handleFinish}
+        requiredMark={false}
+        className="teamRoleForm"
+      >
         {renderTitle()}
         {renderRoleSelector()}
         {renderDescription()}

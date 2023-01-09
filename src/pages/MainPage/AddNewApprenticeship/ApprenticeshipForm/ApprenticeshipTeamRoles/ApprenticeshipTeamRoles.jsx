@@ -22,6 +22,8 @@ const ApprenticeshipTeamRoles = () => {
   const handleFinish = (values) => {
     const rolesIsEmpty = roles.length === 0;
 
+    console.log(values);
+
     if (rolesIsEmpty) {
       setRoles([{ id: 0, ...values }]);
       return setFormContext({ ...otherValues, teamRoles: [{ id: 0, ...values }] });

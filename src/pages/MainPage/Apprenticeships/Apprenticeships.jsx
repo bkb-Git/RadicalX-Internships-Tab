@@ -80,9 +80,7 @@ const Apprenticeships = () => {
           <LoadingScreen />
         ) : (
           <Row gutter={[20, 0]} style={{ height: "100%" }} justify="start" align="top">
-            {apprenticeshipsList.map((post) => (
-              <ApprenticeshipPost data={post} key={post.id} />
-            ))}
+            {apprenticeshipsList.map((post) => post.formFinished && <ApprenticeshipPost data={post} key={post.id} />)}
           </Row>
         )}
       </Col>
