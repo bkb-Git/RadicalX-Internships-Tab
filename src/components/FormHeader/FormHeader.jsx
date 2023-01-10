@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Button, Col, notification, Row, Typography } from "antd";
@@ -21,8 +21,6 @@ const FormHeader = (props) => {
   // Form Context is used here //
   const formContext = useContext(context);
   const { step: currentStep, handleFormFinish, docRef } = formContext;
-
-  useEffect(() => {}, [submitting]);
 
   // Notification API //
 

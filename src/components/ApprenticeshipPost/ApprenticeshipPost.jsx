@@ -1,16 +1,36 @@
-import { Card, Col, Row, Tag, Typography } from "antd";
+import { Card, Col, notification, Row, Tag, Typography } from "antd";
 
 import { ReactComponent as EditIcon } from "assets/edit.svg";
 import { ReactComponent as TrashIcon } from "assets/trash.svg";
 import { ReactComponent as CopyIcon } from "assets/copy.svg";
 
 import "./ApprenticeshipPost.scss";
+import { deleteDoc } from "firebase/firestore";
 
 const { Title, Paragraph } = Typography;
 
 const ApprenticeshipPost = (props) => {
-  const { data } = props;
-  const { title, company_description: companyDescription, teamRoles, id } = data;
+  const { data, refreshList, setLoading } = props;
+  const { title, company_description: companyDescription, teamRoles, id, docRef } = data;
+
+  // Notification API
+
+  const [api, contextHolder] = notification.useNotification();
+
+  // Handle functions defined here
+
+  const handleDelete = async () => {
+    setLoading(true);
+    deleteDoc(docRef)
+      .then(() => refreshList())
+      .catch((err) =>
+        api.error({
+          message: "Could not delete document",
+          description: err.message,
+          placement: "top",
+        })
+      );
+  };
 
   // Render functions for views //
 
@@ -32,7 +52,7 @@ const ApprenticeshipPost = (props) => {
                 <CopyIcon id="copy-icon" />
               </Col>
               <Col className="apprenticeshipPost__card__icon">
-                <TrashIcon id="delete-icon" />
+                <TrashIcon onClick={handleDelete} id="delete-icon" />
               </Col>
             </Row>
           </Col>
@@ -70,6 +90,7 @@ const ApprenticeshipPost = (props) => {
           {renderHeader()}
           {renderDescription()}
           {renderTags()}
+          {contextHolder}
         </Row>
       </Card>
     </Col>

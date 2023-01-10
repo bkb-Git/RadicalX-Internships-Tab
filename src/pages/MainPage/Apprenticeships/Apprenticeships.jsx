@@ -31,10 +31,11 @@ const Apprenticeships = () => {
 
   const getApprenticeships = async () => {
     const apprenticeshipsCol = collection(db, "apprenticeships");
-
     await getDocs(apprenticeshipsCol)
       .then((data) => {
-        const currentDoc = data.docs.map((item) => item.data());
+        const currentDoc = data.docs.map((item) => {
+          return { data: item.data(), docRef: item.ref };
+        });
 
         setApprenticeshipsList(currentDoc);
         setLoading(false);
@@ -65,6 +66,32 @@ const Apprenticeships = () => {
       .catch((err) => api.error({ message: err.message, placement: "bottomLeft" }));
   };
 
+  // Render function for the apprenticeship list
+
+  const renderList = () => {
+    return (
+      <Row gutter={[20, 0]} style={{ height: "100%" }} justify="start" align="top">
+        {apprenticeshipsList?.map((post) => {
+          const {
+            data: { formFinished, ...otherProps },
+            docRef,
+          } = post;
+
+          return (
+            formFinished && (
+              <ApprenticeshipPost
+                data={{ ...otherProps, docRef }}
+                key={post.data.id}
+                refreshList={getApprenticeships}
+                setLoading={setLoading}
+              />
+            )
+          );
+        })}
+      </Row>
+    );
+  };
+
   return (
     <Row className="apprenticeships">
       <Col {...responsiveWidths} className="apprenticeships__header">
@@ -76,13 +103,7 @@ const Apprenticeships = () => {
         />
       </Col>
       <Col {...responsiveWidths} className="apprenticeships__content">
-        {loading ? (
-          <LoadingScreen />
-        ) : (
-          <Row gutter={[20, 0]} style={{ height: "100%" }} justify="start" align="top">
-            {apprenticeshipsList.map((post) => post.formFinished && <ApprenticeshipPost data={post} key={post.id} />)}
-          </Row>
-        )}
+        {loading ? <LoadingScreen /> : renderList()}
       </Col>
     </Row>
   );

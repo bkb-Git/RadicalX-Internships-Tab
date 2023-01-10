@@ -57,7 +57,6 @@ const InternshipFormLayout = (props) => {
         return emptyInputIndex < 0;
       }
       case STEP.GUIDE: {
-        // console.log(Object.values(internshipGuide).forEach((value) => console.log(value)));
         const hasAllValues = Object.keys(internshipGuide).every(
           (value) => Object.values(internshipGuide[value]).length > 0
         );

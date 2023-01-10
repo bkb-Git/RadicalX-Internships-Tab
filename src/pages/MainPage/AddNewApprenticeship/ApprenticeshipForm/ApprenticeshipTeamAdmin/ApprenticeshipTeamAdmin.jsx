@@ -40,13 +40,10 @@ const ApprenticeshipTeamAdmin = () => {
 
   const renderAdmins = () => admins.map((item) => <TeamAdminCard name={item.name} key={item.name} />);
 
+  const modalConfig = { title: "Add Admin", open, setOpen, view: TeamAdminFormModal, handleFinish };
+
   return (
-    <ApprenticeshipFormItemCard
-      title="Team Admin"
-      className="teamAdmin"
-      modal={{ title: "Add Admin", open, setOpen, view: TeamAdminFormModal, handleFinish }}
-      addButton={handleOpen}
-    >
+    <ApprenticeshipFormItemCard title="Team Admin" className="teamAdmin" modal={modalConfig} addButton={handleOpen}>
       <Row justify="start" align="middle" gutter={[32, 16]}>
         {adminsExist && renderAdmins()}
       </Row>

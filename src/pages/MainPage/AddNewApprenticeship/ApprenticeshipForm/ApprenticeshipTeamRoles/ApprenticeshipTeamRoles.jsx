@@ -17,12 +17,14 @@ const ApprenticeshipTeamRoles = () => {
   const [open, setOpen] = useState(false);
   const [roles, setRoles] = useState(teamRoles);
 
+  const rolesExist = roles.length > 0;
+
+  // Handle functions defined here
+
   const handleOpen = () => setOpen(true);
 
   const handleFinish = (values) => {
     const rolesIsEmpty = roles.length === 0;
-
-    console.log(values);
 
     if (rolesIsEmpty) {
       setRoles([{ id: 0, ...values }]);
@@ -37,15 +39,10 @@ const ApprenticeshipTeamRoles = () => {
     return setOpen(false);
   };
 
-  const rolesExist = roles.length > 0;
+  const modalConfig = { title: "Add Role", open, setOpen, view: TeamRoleFormModal, handleFinish };
 
   return (
-    <ApprenticeshipFormItemCard
-      title="Team Roles"
-      className="teamRoles"
-      modal={{ title: "Add Role", open, setOpen, view: TeamRoleFormModal, handleFinish }}
-      addButton={handleOpen}
-    >
+    <ApprenticeshipFormItemCard title="Team Roles" className="teamRoles" modal={modalConfig} addButton={handleOpen}>
       {rolesExist && (
         <Row justify="start" align="middle" gutter={[16, 16]}>
           {roles.map((role) => (
