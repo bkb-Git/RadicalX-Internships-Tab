@@ -1,0 +1,140 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.teamRoleForm {
+    width: 100%;
+
+    &__formItem {
+        margin-bottom: 0;
+
+        .ant-form-item-control-input-content {
+            @include mixins.flex(center, center, row);
+
+            &:hover {
+                .teamRoleForm__formItem__prefixIcon {
+                    border-color: $color-primary;
+                }
+
+                .teamRoleForm__formItem__select {
+                    border-color: $color-primary !important;
+                }
+            }
+        }
+
+        &__prefixIcon {
+            padding: 14px 0px 10px 16px;
+            border: 1px solid #d9d9d9;
+            border-right: none;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            transition: all 0.2s linear;
+        }
+
+        &__select {
+            &--role {
+                .ant-select-selector {
+                    &::before {
+                        content: url("../../../../../../assets/profile.svg");
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 1rem;
+                    }
+                }
+            }
+
+            &--requiredSkills {
+                .ant-select-selector {
+                    &::before {
+                        content: url("../../../../../../assets/medal-star.svg");
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 1rem;
+                    }
+                }
+            }
+
+            &--complementarySkills {
+                .ant-select-selector {
+                    &::before {
+                        content: url("../../../../../../assets/star.svg");
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 1rem;
+                    }
+                }
+            }
+
+            &--location {
+                .ant-select-selector {
+                    &::before {
+                        content: url("../../../../../../assets/locationSmall.svg");
+                        width: 24px;
+                        height: 24px;
+                        margin-right: 1rem;
+                    }
+                }
+            }
+
+            .ant-select-selector {
+                @include mixins.flex(center, center, row);
+                height: auto !important;
+                border-radius: 20px !important;
+                padding: 12px 16px !important;
+            }
+
+            input {
+                height: 100% !important;
+                padding: 0px 5px !important;
+            }
+
+            .ant-select-arrow {
+                right: 20px !important;
+            }
+        }
+
+        &__tag {
+            padding: 12px 16px;
+            border-radius: 20px;
+            background-color: adjust-color($color: $color-primary, $alpha: -0.8);
+            border-color: transparent;
+            color: $color-primary;
+            font-family: $font-primary;
+            font-size: 1.5rem;
+            font-weight: 500;
+
+            span {
+                margin-left: 1.5rem;
+                font-size: 12px;
+                color: $color-primary;
+            }
+        }
+    }
+
+    &__header {
+        &__saveButton {
+            border-radius: 8px;
+        }
+
+        &__closeButton {
+            @include mixins.flex(center, center, row);
+            opacity: 0.7;
+            transition: all 0.5 linear;
+
+            &:hover {
+                opacity: 1;
+                transform: scale(1.1);
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__description {
+        border-radius: 20px !important;
+        padding: 12px 16px !important;
+    }
+
+    &__timeInput {
+        border-radius: 20px !important;
+        padding: 12px 16px !important;
+    }
+}

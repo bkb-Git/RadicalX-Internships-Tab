@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Avatar, Badge, Col, Form, Input, Row, Typography } from "antd";
+import { Col, Form, Input, Row, Typography } from "antd";
 
 import { AddNewInternshipFormContext } from "context/AddNewInternshipFormContext";
 
@@ -7,11 +7,11 @@ import { ReactComponent as ProfileIcon } from "assets/profile.svg";
 import { ReactComponent as LinkIcon } from "assets/link.svg";
 
 import { ReactComponent as SmsIcon } from "assets/sms.svg";
-import { ReactComponent as ProfileImgTag } from "assets/profileImgTag.svg";
 
 import InternshipFormItemCard from "components/InternshipFormItemCard";
 
 import "./MentorDetailsInput.scss";
+import UploadProfileImg from "components/UploadProfileImg";
 
 const { Title } = Typography;
 
@@ -44,9 +44,7 @@ const MentorDetailsInput = () => {
       </Col>
 
       <Col span={24} style={{ marginBottom: "1rem" }}>
-        <Badge count={<ProfileImgTag />} offset={[-5, 55]}>
-          <Avatar shape="square" size={64} style={{ borderRadius: "20px" }} />
-        </Badge>
+        <UploadProfileImg />
       </Col>
       <Col span={24}>
         <Row gutter={[24, 0]} style={{ height: "100%" }}>
