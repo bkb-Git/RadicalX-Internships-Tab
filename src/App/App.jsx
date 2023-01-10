@@ -9,12 +9,14 @@ import addNewInternshipRoute from "routes/addNewInternshipRoute";
 import mainViewRoute from "routes/mainViewRoute";
 
 import MainPage from "pages/MainPage";
+import addNewApprenticeshipRoute from "routes/addNewApprenticeshipRoute";
 
 const App = () => {
   const globalContext = useContext(GlobalContext);
 
   const MainViewRoute = mainViewRoute();
   const AddNewInternshipRoute = addNewInternshipRoute();
+  const AddNewApprenticeshipRoute = addNewApprenticeshipRoute();
 
   const LoginRoute = {
     path: "/login",
@@ -28,7 +30,7 @@ const App = () => {
   const AppRoute = {
     path: "/",
     element: <MainPage />,
-    children: [MainViewRoute, AddNewInternshipRoute],
+    children: [MainViewRoute, AddNewInternshipRoute, AddNewApprenticeshipRoute],
     loader: () => {
       if (!globalContext.userDetails) return redirect("/login");
       return false;

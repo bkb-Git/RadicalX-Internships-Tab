@@ -1,0 +1,29 @@
+@use "/src/styles/mixins";
+@import "/src/styles/variables";
+
+.introVidInput {
+    &__dragger {
+        border-radius: 8px;
+        padding: 16px 0px;
+
+        &__text {
+            @include mixins.flex(center, center, row);
+            margin-bottom: 0 !important;
+            color: #778188;
+        }
+    }
+
+    &__tag {
+        @include mixins.flex(center, center, row);
+        border-radius: 12px;
+        padding: 10px 16px;
+        background: #edeaff;
+        color: $color-primary;
+        border: none;
+
+        span {
+            color: $color-primary;
+            margin-left: 10px;
+        }
+    }
+}

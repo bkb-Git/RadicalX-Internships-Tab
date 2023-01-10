@@ -1,0 +1,42 @@
+@import "/src/styles/variables";
+
+.apprenticeshipPost {
+    height: 250px;
+
+    &__card {
+        border-radius: 20px;
+        height: 100%;
+
+        &__tag {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border-color: $color-primary;
+            background-color: #edeaff;
+            color: $color-primary;
+            font-weight: 500;
+        }
+
+        &__icon {
+            transition: all 0.2s ease-out;
+
+            &:hover {
+                cursor: pointer;
+
+                #edit-icon,
+                #copy-icon {
+                    path {
+                        stroke: $color-primary;
+                        fill: $color-primary;
+                    }
+                }
+
+                #delete-icon {
+                    path {
+                        stroke: red;
+                        fill: red;
+                    }
+                }
+            }
+        }
+    }
+}
